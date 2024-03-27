@@ -13,10 +13,10 @@
                   </div>
                   <div class="price-filter">
                     <!-- <div id="slider-range"></div> -->
-                    <form class="price-slider-amount" method="POST" action="index.php?act=sanpham">
+                    <form class="price-slider-amount" method="POST" action="?act=search">
                       <div class="label-input">
-                        <input type="text" name="kyw" placeholder="Tìm kiếm" />
-                        <button class="filter-btn" name="timkiem" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                        <input type="text" name="content" placeholder="Tìm kiếm" />
+                        <button class="filter-btn" name="search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                       </div>
                     </form>
                   </div>
@@ -33,7 +33,7 @@
                         require_once '../model/category.php';
                         $listCat = loadAll();
                         foreach($listCat as $cat) {?>
-                        <li><a href="?act=ProductByIdDm&id_dm=<?=$cat['id_dm']?>"><?=$cat['name_dm']?></a></li>
+                        <li><a href="?act=search-by-id&id_dm=<?=$cat['id_dm']?>"><?=$cat['name_dm']?></a></li>
 
                         <?php } ?>
 
@@ -43,7 +43,16 @@
                 </div>
               </aside>
             </div>
+        
             <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
+            <form action="">
+              <select name="" id="">
+                <option value="">Bộ lọc</option>
+                <option value="">Giá tăng dần</option>
+                <option value="">Giá giảm dần</option>
+                <option value="">Bán chạy</option>
+              </select>
+            </form>
               <section>
                 <div class="container text-center">
                   <div class="row">
