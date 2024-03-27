@@ -41,21 +41,25 @@
                 </li>
                 <li class="nav-item dropdown">
                   <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Sản phẩm
+                    Hãng sản xuất
                   </a>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Iphone</a></li>
-                    <li><a class="dropdown-item" href="#">Samsung</a></li>
-                    <li><a class="dropdown-item" href="#">Xiaomi</a></li>
+                  <ul class="dropdown-menu ">
+                  <?php
+                        require_once '../model/category.php';
+                        $listCat = loadAll();
+                        foreach($listCat as $cat) {?>
+                        <li><a href="?act=search-by-id&id_dm=<?=$cat['id_dm']?>" style="text-decoration: none;" class="text-black dropdown-item"><?=$cat['name_dm']?></a></li>
+
+                        <?php } ?>
                     <li><a class="dropdown-item" href="index.php?act=all-product">Tất cả sản phẩm</a></li>
                   </ul>
                 </li>
               </ul>
             </div>
             <div class="ms-auto">
-              <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
+              <form class="d-flex" role="search" method="POST" action="?act=search" >
+                <input class="form-control me-2" type="search" name="content" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" name="search" type="submit">Search</button>
               </form>
             </div>
           
@@ -64,9 +68,14 @@
                 <a href="?act=cart"> <i class="fa-solid fa-cart-shopping fa-2xl text-dark"></i></a>
                 <span class="badge bg-light text-danger rounded-pill position-absolute top-0 end-0">
 <?php 
-require_once '../model/cart.php';
+if(isset($_SESSION['user'])){
+  require_once '../model/cart.php';
 $count = count_sp();
 echo $count['0']['COUNT(id_cart)'];
+}
+else{
+  
+}
 ?>
 
                 </span>
