@@ -29,18 +29,28 @@ if(isset($_GET['act'])) {
               $check = checklogin($email,$password);
               if($check){
                 $_SESSION['user'] = $check;
-
+                echo '
+                  <script>
+                  alert("Đăng nhập thành công !");
+                      setTimeout(function() {
+                          window.location.href = "./index.php";
+                      }, 0); 
+                  </script>
+                ';
               }
-              header('Location: http://localhost/Duan1/client/index.php');
-              exit();
-   
-              
           }
           break;
         case 'logout':
           session_unset();
           session_destroy();
-        header('Location: http://localhost/Duan1/client/index.php');
+          echo '
+          <script>
+          alert("Đăng Xuất thành công !");
+              setTimeout(function() {
+                  window.location.href = "./index.php";
+              }, 0);
+          </script>
+        ';
           break;
         case 'profile':
           require_once './view/users/profile.php';

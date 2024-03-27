@@ -8,7 +8,7 @@
             </div>
             <div class="col-lg-6">
                 <h2><?=$Product['name_sp']?> </h2>
-                <p><?=$Product['price_sp']?></p>
+                <h3 class="text-danger">$<?=$Product['price_sp']?></h3>
     
                 <!-- Chọn màu -->
                 <div class="container">
@@ -42,10 +42,7 @@
             <div class="col-lg-12">
                 <h3>Thông số kỹ thuật</h3>
                 <ul>
-                    <li><strong>Màn hình:</strong> 6.5 inch, Super AMOLED</li>
-                    <li><strong>Camera:</strong> Chính 48MP, Selfie 20MP</li>
-                    <li><strong>RAM:</strong> 8GB</li>
-                    <li><strong>Pin:</strong> 5000mAh</li>
+                    
                 </ul>
             </div>
         </div>
@@ -54,8 +51,7 @@
             <div class="col-lg-12">
                 <h3>Mô tả chi tiết</h3>
                <p>
-                Samsung Galaxy S24 Plus: Siêu phẩm AI, hoàn hảo từng cái chạm
-Samsung Galaxy S24 Plus, phiên bản kế nhiệm của S23 Plus, đang được dự đoán sẽ trở thành mẫu điện thoại cao cấp khuấy đảo thị trường di động trong năm 2024. Hiện sản phẩm vẫn chưa được ra mắt, nhưng đã thu hút được nhiều sự quan tâm của cộng đồng người dùng. Theo đó, Galaxy S24 Plus được trang bị chip Snapdragon 8 Gen 3 For Galaxy, cùng nhiều nâng cấp và cải tiến về thiết kế, camera, hiệu năng,... giúp mang đến trải nghiệm tốt hơn cho người dùng.
+               <?=$Product['desc_sp']?>
                </p>
             </div>
         </div>
@@ -75,8 +71,8 @@ Samsung Galaxy S24 Plus, phiên bản kế nhiệm của S23 Plus, đang đượ
                $Product = loadAllProduct();
                foreach($Product as $sp){ ?>
       <div class="col-3 border p-3 pd-3 bg-white d-flex justify-content-center">
-      <div class="product">
-        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1">
+      <div class="product" >
+        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 100px;">
         <div class="overlay">
           <div class="content">
             <h3><?=$sp['name_sp']?></h3>
