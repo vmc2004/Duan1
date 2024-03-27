@@ -17,5 +17,8 @@ function count_sp(){
     $count = pdo_query($sql);
     return $count;
 }
-
+function deleteCart($del){
+    $sql="DELETE FROM `cart` WHERE id_sp = $del";
+    pdo_execute($sql);
+}
 ?>
