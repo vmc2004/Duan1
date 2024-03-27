@@ -136,7 +136,7 @@ if(isset($_GET['act'])) {
             require_once '../admin/categories/list.php';
             break;
         case 'list-users':
-            require_once '../admin/categories/list.php';
+            require_once '../admin/user/list.php';
             break;
         case 'delete-category':
             if(isset($_GET['id_dm'])){
