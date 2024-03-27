@@ -30,10 +30,10 @@
     </div>
     <div class="col-md-4">
       <div class="banner">
-        <img src="../img/banner4.jpg" class="d-block w-100" alt="Banner 1" height="160px">
+        <img src="../img/banner4.jpg" class="d-block w-100" alt="Banner 1" style="height: 160px;">
       </div>
       <div class="banner">
-        <img src="../img/banner1.png" class="d-block w-100" alt="Banner 2"  height="160px">
+        <img src="../img/banner1.png" class="d-block w-100" alt="Banner 2"  style="height: 160px;">
       </div>
     </div>
   </div>
@@ -93,7 +93,7 @@ require_once '../model/List.php';
 $listProduct = top6Product();
 foreach($listProduct as $sp){ ?>
     <div class="col-4 border p-3 bg-white d-flex justify-content-center">
-    <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
+<form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
       <div class="product">
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
         <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" >
@@ -106,7 +106,7 @@ foreach($listProduct as $sp){ ?>
             <p> $<?=$sp['price_sp']?> </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
            <a href="?act=add-to-cart"> <button type="submit" name="addToCart" class=" bg-success text-light rounded p-1" >Add to cart </button></a>
-            <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>"><button class="view-details bg-dark text-light rounded p-1 ">View Details</button></a>
+      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
           </div>
         </div>
       </div>

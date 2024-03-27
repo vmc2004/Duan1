@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+require_once '../model/product.php';
 require_once '../model/user.php';
 require_once '../model/list.php';
 require_once '../model/cart.php';
@@ -28,8 +29,9 @@ if(isset($_GET['act'])) {
               $check = checklogin($email,$password);
               if($check){
                 $_SESSION['user'] = $check;
+
               }
-              header('Location: http://localhost/PlayMobile/client/index.php');
+              header('Location: http://localhost/Duan1/client/index.php');
               exit();
    
               
@@ -38,7 +40,7 @@ if(isset($_GET['act'])) {
         case 'logout':
           session_unset();
           session_destroy();
-        header('Location: http://localhost/PlayMobile/client/index.php');
+        header('Location: http://localhost/Duan1/client/index.php');
           break;
         case 'profile':
           require_once './view/users/profile.php';
@@ -80,15 +82,26 @@ if(isset($_GET['act'])) {
         }
         break;  
       case 'viewProduct':
+      if(isset($_GET['id_sp'])){
         $id = $_GET['id_sp'];
         $Product = loadProductById($id);
         require_once './view/product/productchitiet.php';
+      }
         break;    
       case 'cart':
-        $Cart = loadCart();
-        require_once 'cart.php';
+     if(!isset($_SESSION['user'])){
+      header("location: ?act=login");
+
+
+     }
+     $Cart = loadCart();
+     require_once 'cart.php';      
+
+  
+     
         break;   
       case 'add-to-cart':
+       if(isset($_SESSION['user'])){
         if(isset($_POST['addToCart'])){
           $id_sp = $_POST['id_sp'];
           $name_sp = $_POST['name_sp'];
@@ -99,7 +112,37 @@ if(isset($_GET['act'])) {
           header("location: ?act=cart");
           exit();
         }
+       }
+       else{
+        header('location: ?act=login');
+       }
         break;
+        case 'delete-cart':
+          if(isset($_POST['delete'])){
+            $delete = $_POST['product_id[]'];
+            foreach($delete as $del){
+              deleteCart($del);
+            }
+          }
+        case 'check-out':
+          require_once 'checkout.php';
+          break;
+        case 'search':
+          if(isset($_POST['search'])){
+            $content = $_POST['content'];
+            $Product = search($content);
+            require_once './view/product/product.php';
+          }
+          break;
+        case 'search-by-id':
+          if(isset($_GET['id_dm'])){
+            $id_dm = $_GET['id_dm'];
+            $Product = searchnbyid_dm($id_dm);
+          }
+            
+            require_once './view/product/product.php';
+          
+          break;
          
   }
 
