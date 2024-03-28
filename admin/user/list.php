@@ -18,4 +18,4 @@
      
      </tbody>
 </table>
-<a href="index.php?act=add-category" class="btn btn-primary">Add User</a>
+<a href="index.php?act=add-category" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add User</a>
