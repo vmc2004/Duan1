@@ -58,7 +58,8 @@ if(isset($_GET['act'])) {
                 $target_dir = "../img/";
                 $target_file = $target_dir . $product_avatar;
                 move_uploaded_file($_FILES["product_avatar"]["tmp_name"], $target_file);
-                addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar);
+                $matsan = $_POST['matsan'];
+                addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar,$matsan);
                 header("location: index.php?act=list-products");
                 exit();
 
@@ -80,7 +81,8 @@ if(isset($_GET['act'])) {
                 $target_dir = "../img/";
                 $target_file = $target_dir . $product_avatar;
                 move_uploaded_file($_FILES["product_avatar"]["tmp_name"], $target_file);
-                addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar);
+                $matsan = $_POST['matsan'];
+                addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar,$matsan);
                 header("location: index.php?act=list-products");
                 exit();
 
@@ -103,6 +105,7 @@ if(isset($_GET['act'])) {
         case 'update-product':
             if(isset($_GET['id_sp'])){
                 $id_sp = $_GET['id_sp'];
+                
                 $info = LoadProById($id_sp);
                 if(isset($_POST['update-product'])){
                     $id_sp = $_GET['id_sp'];

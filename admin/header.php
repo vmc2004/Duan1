@@ -24,10 +24,10 @@
     <nav>
         <div class="logo-name">
             <div class="logo-image">
-                <img src="../img/tải xuống.png" alt="Logo" width="70">
+               <a href="../client/index.php" style="text-decoration: none;"> <img src="https://theme.hstatic.net/200000278317/1000929405/14/logo_medium.png?v=1170" alt="Logo" width="150px"> <span class="logo_name">8 Football</span></a>
             </div>
 
-            <span class="logo_name">Play Mobile</span>
+            
         </div>
 
         <div class="menu-items">
