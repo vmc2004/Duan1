@@ -21,12 +21,12 @@
             <tr> <td scope="row"> <?=$cat['id_dm']?> </td>
               <td scope="row"><?=$cat['name_dm']?></td>
               <td>
-              <a href="<?=$suacate?>"><button type="button" class="btn btn-warning" name="edit-category">Edit</button></a>
-              <a href="<?=$xoacate?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')">Delete</button></a>
-              <a href="index.php?act=add-product-with-cat&id_dm=<?=$cat['id_dm']?>" class="btn btn-primary">Add Product</a>
+              <a href="<?=$suacate?>"><button type="button" class="btn btn-warning" name="edit-category"><i class="fa-solid fa-wrench"></i> Edit</button></a>
+              <a href="<?=$xoacate?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')"> <i class="fa-solid fa-trash"></i> Delete</button></a>
+              <a href="index.php?act=add-product-with-cat&id_dm=<?=$cat['id_dm']?>" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Product</a>
             </td> </tr>
          <?php  } ?>
      
      </tbody>
 </table>
-<a href="index.php?act=add-category" class="btn btn-primary">Add Category</a>
+<a href="index.php?act=add-category" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Category</a>
