@@ -11,9 +11,26 @@ function loadProductById($id_sp){
     return $Product;
 }
 function top6Product(){
-    $sql = "SELECT * FROM `sanpham` ORDER BY luotban DESC LIMIT 0,8";
+    $sql = "SELECT * FROM `sanpham` ORDER BY luotban DESC LIMIT 0,4";
    $listProduct =  pdo_query($sql);
    return $listProduct;
+}
+function productrelated ($id_dm){
+$sql= "SELECT * FROM `sanpham` WHERE id_dm = $id_dm";
+$result = pdo_query($sql);
+return $result;
+}
+function loaigiay(){
+    $sql = "SELECT * FROM `sanpham` WHERE matsan = '1'";
+    $result = pdo_query($sql);
+    return $result;
+    
+}
+function tunhien(){
+    $sql = "SELECT * FROM `sanpham` WHERE matsan = '2'";
+    $result = pdo_query($sql);
+    return $result;
+    
 }
 
 

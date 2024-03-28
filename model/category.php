@@ -27,6 +27,11 @@ function   updateCategory($id_dm,$name){
     $sql= "UPDATE `danhmuc` SET `name_dm`='$name' WHERE id_dm = $id_dm";
     pdo_execute($sql);
 }
+function nameById($id_dm){
+    $sql= "SELECT name_dm FROM `danhmuc` WHERE id_dm = $id_dm ";
+    $name = pdo_query_one($sql);
+    return $name;
+}
 
 
 

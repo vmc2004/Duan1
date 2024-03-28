@@ -1,8 +1,8 @@
 <?php
 require_once 'pdo.php';
 
-function addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar){
-    $sql="INSERT INTO `sanpham`(`id_dm`, `name_sp`, `price_sp`, `desc_sp`, `soluong`, `image_sp`) VALUES ('$category','$product_name','$product_price','$product_desc','$product_quantity','$product_avatar')";
+function addProduct($category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar, $matsan){
+    $sql="INSERT INTO `sanpham`(`id_dm`, `name_sp`, `price_sp`, `desc_sp`, `soluong`, `image_sp`,`matsan`) VALUES ('$category','$product_name','$product_price','$product_desc','$product_quantity','$product_avatar',' $matsan')";
     return pdo_execute($sql);
 }
 function delete_pro($id_sp){
@@ -28,4 +28,5 @@ function searchnbyid_dm($id_dm){
     $Product = pdo_query($sql);
     return $Product;
 }
+
 ?>
