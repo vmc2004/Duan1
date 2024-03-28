@@ -28,8 +28,8 @@
           <td scope="row"><?=$pro['price_sp']?></td>
           <td scope="row"><?=$pro['soluong']?></td>
           <td scope="row">
-          <a href="<?=$sua?>"><button type="button" class="btn btn-warning" name="edit-category"><i class="fa-solid fa-wrench fa-l"></i> Edit</button></a>
-              <a href="<?=$xoa?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')"><i class="fa-solid fa-trash fa-l"></i> Delete</button></a>
+          <a href="<?=$sua?>"><button type="button" class="btn btn-warning" name="edit-category"><i class="fa-solid fa-wrench fa-l"></i> Sửa</button></a>
+              <a href="<?=$xoa?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')"><i class="fa-solid fa-trash fa-l"></i> Xóa</button></a>
 
           </td>
         </tr>
@@ -37,4 +37,4 @@
 
      </tbody>
 </table>
-<a href="index.php?act=add-product" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Product</a>
+<a href="index.php?act=add-product" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Thêm sản phẩm</a>

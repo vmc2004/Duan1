@@ -76,7 +76,7 @@ foreach($Product as $sp){ ?>
             <p class="text-danger fw-bold"><?=$sp['price_sp']?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
             <button type="submit" name="addToCart" class="add-to-cart bg-success text-light rounded p-1" >Add to cart </button>
-      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
+      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
 
           </div>
         </div>

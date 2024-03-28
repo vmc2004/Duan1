@@ -16,7 +16,7 @@ function top6Product(){
    return $listProduct;
 }
 function productrelated ($id_dm){
-$sql= "SELECT * FROM `sanpham` WHERE id_dm = $id_dm";
+$sql= "SELECT * FROM `sanpham` WHERE id_dm = $id_dm LIMIT 0,4";
 $result = pdo_query($sql);
 return $result;
 }
