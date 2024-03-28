@@ -5,11 +5,11 @@
      <thead>
      <tr>
           <th scope="col">#</th>   
-          <th scope="col">Product Name</th>
-          <th scope="col">Product avatar</th>
-          <th scope="col">Product price</th>
-          <th scope="col">Product quantity</th>
-          <th scope="col">Action</th>
+          <th scope="col">Tên sản phẩm</th>
+          <th scope="col">Ảnh</th>
+          <th scope="col">Giá</th>
+          <th scope="col">Số lượng</th>
+          <th scope="col">Hành động</th>
      </tr>
      </thead>
      <tbody>
@@ -18,7 +18,7 @@
           $sql="SELECT * FROM `sanpham`";
           $list = pdo_query($sql);
         foreach($list as $pro){
-          $sua = "index.php?act=update-product&id_sp=".$pro['id_sp'];
+          $sua = "index.php?act=update-product&id_sp=".$pro['id_sp']."&id_dm=".$pro['id_dm'];
           $xoa = "index.php?act=delete-product&id_sp=".$pro['id_sp'];
           ?>
         <tr>
@@ -28,8 +28,8 @@
           <td scope="row"><?=$pro['price_sp']?></td>
           <td scope="row"><?=$pro['soluong']?></td>
           <td scope="row">
-          <a href="<?=$sua?>"><button type="button" class="btn btn-warning" name="edit-category">Edit</button></a>
-              <a href="<?=$xoa?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')">Delete</button></a>
+          <a href="<?=$sua?>"><button type="button" class="btn btn-warning" name="edit-category"><i class="fa-solid fa-wrench fa-l"></i> Edit</button></a>
+              <a href="<?=$xoa?>"><button type="button" class="btn btn-danger" name="deletecate" onclick="return confirm('Những sản phẩm trong danh mục này cũng sẽ bị xóa, xác nhận ?')"><i class="fa-solid fa-trash fa-l"></i> Delete</button></a>
 
           </td>
         </tr>
@@ -37,4 +37,4 @@
 
      </tbody>
 </table>
-<a href="index.php?act=add-product" class="btn btn-primary">Add Product</a>
+<a href="index.php?act=add-product" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Add Product</a>
