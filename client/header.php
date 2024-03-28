@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Trang chủ</title>
     <style>
-
-
-
-    </style>
+  .navbar-nav .nav-item .nav-link:hover {
+    color: red;
+  }
+  .navbar-nav .nav-item .nav-link.active {
+    color: red !important;
+  }
+  </style>
     <link rel="stylesheet" href="../public/css.css">
     <link rel="stylesheet" href="../public//profile.css">
     <link rel="stylesheet" href="../public//user.css">
     <link rel="stylesheet" href="./lib/bootstrap.css">
+    <link rel="stylesheet" href="../public/css.css">
+    <script src="../public/header.js"></script>
     <script src="../lib/bootstrap.css"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -23,47 +28,23 @@
   <body>
     <header>
       <div class="container-fluid ">
-        <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark">
-          <div class="container">
-            <a class="navbar-brand" href="index.php">
-              <img src="../img/tải xuống.png" alt="Logo website" width="70" >
+      <div class="container d-flex">
+          <a class="navbar-brand p-3" href="index.php">
+              <img src="https://theme.hstatic.net/200000278317/1000929405/14/logo_medium.png?v=1170" alt="Logo website" width="150" >
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="index.php">Trang chủ</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Liên hệ</a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Hãng sản xuất
-                  </a>
-                  <ul class="dropdown-menu ">
-                  <?php
-                        require_once '../model/category.php';
-                        $listCat = loadAll();
-                        foreach($listCat as $cat) {?>
-                        <li><a href="?act=search-by-id&id_dm=<?=$cat['id_dm']?>" style="text-decoration: none;" class="text-black dropdown-item"><?=$cat['name_dm']?></a></li>
 
-                        <?php } ?>
-                    <li><a class="dropdown-item" href="index.php?act=all-product">Tất cả sản phẩm</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="ms-auto">
-              <form class="d-flex" role="search" method="POST" action="?act=search" >
-                <input class="form-control me-2" type="search" name="content" placeholder="Search" aria-label="Search">
+            <!-- thanh tìm kiếm  -->
+
+            <div class="ms-auto p-3 " style="width:700px;">
+              <form class="d-flex " role="search" method="POST" action="?act=search" >
+                <input class="form-control me-2" type="search" name="content" placeholder="Bạn đang tìm kiếm..." aria-label="Search">
                 <button class="btn btn-outline-success" name="search" type="submit">Search</button>
               </form>
             </div>
-          
-            <div class="pt-2 pe-2">
+            <!-- kết thúc thanh tìm kiếm  -->
+
+            <!-- Giỏ hàng  -->
+            <div class="p-3">
               <button class="btn position-relative pt-2 pe-3">
                 <a href="?act=cart"> <i class="fa-solid fa-cart-shopping fa-2xl text-dark"></i></a>
                 <span class="badge bg-light text-danger rounded-pill position-absolute top-0 end-0">
@@ -81,23 +62,25 @@ else{
                 </span>
               </button>
             </div>
-           
             
-            <div class="ms-2">
+            <!-- kết thúc giỏ hàng  -->
+            
+            <!-- Login -->
+            <div class="ms-2 p-3">
               <?php
                if(isset($_SESSION['user'])){
               ?>
              <div class="header-action" style="width: 150px; height: 30px;" >
                     <div class="user-profile d-flex " >
                         <img src="../img/<?=$_SESSION['user']['avatar']?>" alt="User Avatar" class="user-avatar " width="40px">
-                        <p><?=$_SESSION['user']['name_user']?></p>
+                        <p ><?=$_SESSION['user']['name_user']?></p>
                         <div class="submenu">
                             <ul>
                               
                             <?php
                             
                             if (($_SESSION['user']['role']) === 'Admin' ){ ?>
-                                <li><a href="/PlayMobile/admin/index.php">Truy cập trang admin</a></li>
+                                <li><a href="/Duan1/admin/index.php">Truy cập trang admin</a></li>
                             <?php } ?>
                                 <li><a href="index.php?act=profile">Trang cá nhân</a></li>
                                 <li><a href="index.php?act=my-courses">Đơn hàng của tôi</a></li>
@@ -116,11 +99,68 @@ else{
                 <a href="index.php?act=login"> <i class="fa-solid fa-user fa-2xl text-dark"> </i></a>
               </button>
               <?php }  ?>
+              <!-- kết thúc login  -->
             
             </div>
           </div>
+          </div>
+          <!-- Thanh menu điều hướng  -->
+
+        <nav class="navbar navbar-expand-lg  ">
+          
+          <div class="container">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link fw-bold active" aria-current="page" href="index.php">Trang chủ</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=all-product">Tất cả sản phẩm</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=giay-tunhien">Giày cỏ tự nhiên</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=giay-nhantao">Giày cỏ nhân tạo</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=all-product">Giày fultsal</a>
+                </li>
+                <li class="nav-item dropdown ">
+                  <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Hãng sản xuất
+                  </a>
+                  <ul class="dropdown-menu ">
+                  <?php
+                        require_once '../model/category.php';
+                        $listCat = loadAll();
+                        foreach($listCat as $cat) {?>
+                        <li><a href="?act=search-by-id&id_dm=<?=$cat['id_dm']?>" style="text-decoration: none;" class="text-black dropdown-item"><?=$cat['name_dm']?></a></li>
+
+                        <?php } ?>
+                    
+                  </ul>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=all-product">Tin tức giày</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=all-product">Khách hàng</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link fw-bold" href="index.php?act=all-product">Liên hệ</a>
+                </li>
+              </ul>
+            </div>
+          
+            
         </nav>
       </div> 
+      <!-- Kết thúc menu  -->
       
       
     </header>
