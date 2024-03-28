@@ -45,32 +45,35 @@
             </div>
         
             <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
-            <form action="">
+           
               <select name="" id="">
                 <option value="">Bộ lọc</option>
                 <option value="">Giá tăng dần</option>
                 <option value="">Giá giảm dần</option>
                 <option value="">Bán chạy</option>
+                <option value=""><a href="index.php?act=giay-tunhien" class="btn ">Sân cỏ tự nhiên</a></option>
+                <option value=""><a href="index.php?act=giay-nhantao">Sân cỏ nhân tạo</a></option>
               </select>
-            </form>
+            
               <section>
                 <div class="container text-center">
                   <div class="row">
                   <?php
+                  
 
 foreach($Product as $sp){ ?>
-    <div class="col-4 border p-3 bg-white d-flex justify-content-center">
+    <div class="col-4 mt-3 mb-3 bg-light d-flex justify-content-center">
     <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
       <div class="product">
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
-        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" >
+        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
         <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
         <input type="hidden" name="soluong" value="1" >
         <div class="overlay">
           <div class="content">
-            <h3><?=$sp['name_sp']?></h3>
+            <p><?=$sp['name_sp']?></p>
             <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>">
-            <p> $<?=$sp['price_sp']?> </p>
+            <p class="text-danger fw-bold"><?=$sp['price_sp']?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
             <button type="submit" name="addToCart" class="add-to-cart bg-success text-light rounded p-1" >Add to cart </button>
       <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
@@ -83,6 +86,17 @@ foreach($Product as $sp){ ?>
 
 <?php } ?>
               </section>
+              <div class="container mt-2 d-flex justify-content-center">
+                
+              
+                <ul class="pagination text-dark">
+                  <li class="page-item"><a class="page-link text-black" href="#">Previous</a></li>
+                  <li class="page-item"><a class="page-link text-black" href="#">1</a></li>
+                  <li class="page-item"><a class="page-link text-black" href="#">2</a></li>
+                  <li class="page-item"><a class="page-link text-black" href="#">3</a></li>
+                  <li class="page-item"><a class="page-link text-black" href="#">Next</a></li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

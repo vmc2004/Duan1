@@ -55,40 +55,29 @@
                </p>
             </div>
         </div>
-        <div class="product-area pb-90">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="section-title">
-                            <h3>Sản phẩm khác </h3>
-                            <div class="product-arrow">
-                            <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
-              <section>
-                <div class="container text-center">
-                  <div class="row">
-               <?php 
-               require_once '../model/product.php';
-               $Product = loadAllProduct();
+        <h3>Sản phẩm khác</h3>
+       <div class="container row">
+        
+       
+       <?php 
+               require_once '../model/list.php';
+               $id_dm = $_GET['id_dm'];
+               $Product = productrelated ($id_dm);
                foreach($Product as $sp){ ?>
-      <div class="col-3 border p-3 pd-3 bg-white d-flex justify-content-center">
+      <div class="col-3 border p-3 pd-3  ">
       <div class="product" >
-        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 100px;">
+        <img src="../img/<?=$sp['image_sp']?>" alt="Image Product" style="min-height: 270px; max-width:300px;" >
         <div class="overlay">
           <div class="content">
             <h3><?=$sp['name_sp']?></h3>
-            <p> <?=$sp['price_sp']?> </p>
-            <button class="add-to-cart bg-success text-light rounded p-1">Add to Cart</button>
-            <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>"><button class="view-details bg-dark text-light rounded p-1 ">View Details</button></a>
+            <p>Price : $   <?=$sp['price_sp']?> </p>
+            <button class="add-to-cart btn-success text-light rounded shadow " style="height: 33px;">Add To Cart</button>
+            <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>"><button class="view-details bg-dark text-light rounded p-1 " style="height: 33px;">View Details</button></a>
           </div>
         </div>
         </div>
     </div>
 
       <?php  } ?>
-
-
-                            </div>
-                        </div>
-                    </div>
-
+       </div>
     </section>

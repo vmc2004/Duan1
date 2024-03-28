@@ -20,6 +20,7 @@ if(isset($_GET['act'])) {
       case 'home':
         require_once './home.php';
         break;
+
         case 'login':
           require_once './view/users/login.php';
       
@@ -55,6 +56,7 @@ if(isset($_GET['act'])) {
         case 'profile':
           require_once './view/users/profile.php';
           break;
+        
         case 'update-profile':
           if(isset($_POST['btn-save'])){
             $id_user = $_SESSION['user']['id_user'];
@@ -152,6 +154,16 @@ if(isset($_GET['act'])) {
             
             require_once './view/product/product.php';
           
+          break;
+        case 'giay-nhantao':
+          $Product =loaigiay();
+          
+          require_once './view/product/product.php';
+          break;
+        case 'giay-tunhien':
+          $Product =tunhien();
+          
+          require_once './view/product/product.php';
           break;
          
   }
