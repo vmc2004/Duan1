@@ -6,6 +6,7 @@ require_once '../model/user.php';
 require_once '../model/list.php';
 require_once '../model/cart.php';
 require_once '../model/pdo.php';
+require_once '../model/binhluan.php';
 require_once 'header.php';
 if(isset($_GET['act'])) {
   $act = $_GET['act'];
@@ -97,6 +98,7 @@ if(isset($_GET['act'])) {
       if(isset($_GET['id_sp'])){
         $id = $_GET['id_sp'];
         $Product = loadProductById($id);
+        $cmt = loadAllcmt();
         require_once './view/product/productchitiet.php';
       }
         break;    
@@ -131,10 +133,10 @@ if(isset($_GET['act'])) {
         break;
         case 'delete-cart':
           if(isset($_POST['delete'])){
-            $delete = $_POST['product_id[]'];
-            foreach($delete as $del){
-              deleteCart($del);
-            }
+            $id_cart = $_GET['id_cart'];
+            deleteCart($id_cart);
+            header("location: ?act=cart");
+            
           }
         case 'check-out':
           require_once 'checkout.php';
@@ -165,6 +167,17 @@ if(isset($_GET['act'])) {
           
           require_once './view/product/product.php';
           break;
+        case 'comment':
+          if(isset($_POST['comment'])){
+            $cmt = $_POST['cmt'];
+            $id_sp = $_POST['id_sp'];
+            $id_user = $_POST['id_user'];
+            $time = date("Y-m-d h:i:sa");
+            addCmt($cmt,$id_sp,$id_user,$time);
+            
+          }
+          break;
+      
          
   }
 

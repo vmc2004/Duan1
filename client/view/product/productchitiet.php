@@ -1,8 +1,16 @@
     <section class="container mt-4">
       <h2 class="text-center mt-4 mb-5">Chi tiết sản phẩm</h2>
-        <div class="row">
+      
+
+       <div class="row">
             <div class="col-lg-6 d-flex justify-content-center p-1 border mb-1 pb-9" >
+            <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
+        <input type="hidden" name="name_sp" value="<?=$Product['name_sp']?>">
+        <input type="hidden" name="image_sp" value="<?=$Product['image_sp']?>">
+        <input type="hidden" name="soluong" value="<?=$Product['soluong']?>">
+        <input type="hidden" name="id_sp" value="<?=$_GET['id_sp']?>">
                 <img src="../img/<?=$Product['image_sp']?>" alt="Product Image" class="img-fluid" name="image">
+                
             </div>
             <div class="col-lg-6">
                 <h4><?=$Product['name_sp']?> </h4>
@@ -52,18 +60,19 @@ if($Product['matsan']==2){
                   </div> <br>
                   <p>Số lượng</p>
                   <div>
-        <button onclick="decreaseQuantity()">-</button>
-        <input type="number" id="quantityInput" value="1" min="1" style="width: 50px; height: 30px;">
-        <button onclick="increaseQuantity()">+</button>
+        <a class="btn border" onclick="decreaseQuantity()">-</a>
+        <input type="number" name="soluong" id="quantityInput" value="1" min="1" style="width: 50px; height: 30px;">
+        <a class="btn border" onclick="increaseQuantity()">+</a>
     </div>
     <br>
-                <button class="btn btn-success">Thêm vào giỏ hàng</button>
+                <button class="btn btn-success" type="submit" name="addToCart">Thêm vào giỏ hàng</button>
                 <button class="btn btn-danger">Mua ngay</button>
                 <p class="mt-5 ">Số lượng : <?=$Product['soluong']?></p>
         </div>
             </div>
            
     
+       </form>
         <!-- Thông số kỹ thuật -->
       
         <div class="row mt-4">
@@ -99,6 +108,69 @@ if($Product['matsan']==2){
 
       <?php  } ?>
        </div>
+
+  <div class="row mt-4">
+    <div class="col-md-6">
+      <h3>Đánh giá | Bình luận</h3>
+ <div class="container">
+ <?php
+
+ foreach($cmt as $comment){
+  if($comment['id_sp'] == $_GET['id_sp']){
+      
+   $now = time();
+   $time = strtotime($comment['time']);
+   $ago = $now - $time;
+   // Tính toán các đơn vị thời gian từ số giây
+   $days = floor($ago / (60 * 60 * 24)); // Số ngày
+   $hours = floor(($ago % (60 * 60 * 24)) / (60 * 60)); // Số giờ
+   $minutes = floor(($ago % (60 * 60)) / 60); // Số phút
+   $remainingSeconds = $ago % 60; // Số giây
+   ?>
+        <div class="post-info-1 mt-4">
+          <img src="../img/<?=$comment['avatar']?>" alt="" width="30px" class="user-avatar ">
+          <?=$comment['name_user']?>
+          <div class="post-reaction">
+     
+                <div class="post-cmt">
+                    <i class="fa-regular fa-comment mt-2"></i>
+                    
+                    <span><?=$comment['content_cmt']?></span>
+                </div> 
+                <p class="post-time">Thời gian:<?php
+                              if($days >0){
+                                echo $days." ngày trước";
+                              }
+                              elseif($hours>0){
+                                echo $hours." giờ trước";
+                              }
+                              elseif($minutes > 0){
+                                echo $minutes." phút trước";
+                              }
+                              else{
+                                echo $remainingSeconds." giây trước";
+                              }
+                              ?></p>
+          </div>
+          <?php } } ?>
+  
+ </div>
+<?php
+if(isset($_SESSION['user'])){
+?>
+
+      <form method="POST" action="?act=comment">
+        <div class="form-group">
+          <label for="comment">Nhận xét:</label>
+          <input type="hidden" name="id_sp" value="<?=$_GET['id_sp']?>">
+          <input type="hidden" name="id_user" value="<?=$_SESSION['user']['id_user']?>">
+          <textarea class="form-control" rows="5" id="comment" name="cmt"></textarea>
+        </div>
+        <button type="submit" name="comment" class="btn btn-primary">Gửi nhận xét</button>
+      </form>
+    </div>
+  </div>
+  <?php } ?>
     </section>
 <script>function increaseQuantity() {
     var input = document.getElementById("quantityInput");

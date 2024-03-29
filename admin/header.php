@@ -92,19 +92,7 @@
             </div>
             
             <!--<img src="images/profile.jpg" alt="">-->
-            <div class="header-action">
-              <div class="user-profile">
-                
-                  <div class="submenu">
-                      <ul>
-                          <li><a href="/VietNamHistory/client/">Truy cập trang user</a></li>
-                          <li><a href="../client/index.php?act=profile">Trang cá nhân</a></li>
-                          <li><a href="">Danh sách khóa học</a></li>
-                          <li><a href="/VietNamHistory/client/index.php?act=logout">Đăng xuất</a></li>
-                      </ul>
-                  </div>
-              </div>
-          </div>
+           
         </div>
       
   

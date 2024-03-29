@@ -7,17 +7,13 @@
             </div>
         </div>
         <form method="post" action="#">
-            <div class="container">
+            <div class="container" id="cart">
                 <table class="table">
                     <thead>
                         <tr>
                             <td>
                                 
-                                <form method="post" action="?act=delete-cart">
-                                    <!-- Thay đổi 'remove_from_cart.php' thành tên file xử lý của bạn -->
-                                    <input type="hidden" name="product_id" value="123"> <!-- Đặt ID sản phẩm để xoá -->
-                                    <button type="submit" name="delete" class="btn btn-danger">Xoá</button>
-                                </form>
+                               
                             </td>
                             <th scope="col">&nbsp;</th>
 							<th scope="col">Tên</th>
@@ -37,24 +33,33 @@
 							?>
                         <tr class="cart_item container  ">
                             <td>
-                                <input type="checkbox" name="product_id[]" value="<?=$ca['id_sp']?>"> <!-- Đặt ID sản phẩm để xoá -->
+                            <form method="post" action="?act=delete-cart&id_cart=<?=$ca['id_cart']?>">
+                                    <!-- Thay đổi 'remove_from_cart.php' thành tên file xử lý của bạn -->
+                                    <input type="hidden" name="cart_id" value="<?=$ca['id_cart']?>"> <!-- Đặt ID sản phẩm để xoá -->
+                                    <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')"><i class="fa-solid fa-trash"></i></button>
+                                </form>
                             </td>
                             <td><a title="Remove this item" class="remove" href="#"></a></td>
                             <td><?=$ca['name_sp']?></td>
 							<td><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail"
                                     src="../img/<?=$ca['image_sp']?>"></td>
-s                            <td><span><?=number_format((int)$ca['price_sp'], 0, ",", ".")?>₫</span></td>
+                         <td><span><?=number_format((int)$ca['price_sp'], 0, ",", ".")?>₫</span></td>
                             <td>
                                 <!-- Tăng giảm số lươngj  -->
                             
                                 <div class="input-group">
-                                <button class="btn btn-outline-secondary btn-number" type="button" data-type="minus" data-field="quantity[<?=$ca['id_sp']?>]">
+                            <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary btn-number" type="button" onclick="giam(this)">
                                 <i class="fa-solid fa-minus"></i>
                                 </button>
-                                <input type="text" name="quantity[<?=$ca['id_sp']?>]" class="form-control input-number" value="<?=$ca['soluong']?>" min="1" style="width: 10px; height: 40px;">
-                                <button class="btn btn-outline-secondary btn-number" type="button" data-type="plus" data-field="quantity[<?=$ca['id_sp']?>]">
+                            </div>
+                                <input type="text"  class="form-control input-number" value="<?=$ca['soluong']?>" min="1" style="width: 10px; height: 40px;">
+                                <div class="input-group-append">
+                                <button class="btn btn-outline-secondary btn-number" type="button" onclick="tang(this)">
                                 <i class="fa-solid fa-plus"></i>
                                 </button>
+                                </div>
+                                <input type="hidden" value="<?=$ca['id_sp']?>">
                                 </div>
                             
 
@@ -86,29 +91,40 @@ s                            <td><span><?=number_format((int)$ca['price_sp'], 0,
             </div>
         </form>
         <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var btns = document.querySelectorAll('.btn-number');
-        btns.forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                var type = this.getAttribute('data-type');
-                var input = document.querySelector('input[name="' + this.getAttribute('data-field') + '"]');
-                var currentValue = parseInt(input.value);
-                var minValue = parseInt(input.getAttribute('min'));
-                var maxValue = parseInt(input.getAttribute('max'));
-                if (!isNaN(currentValue)) {
-                    if (type === 'minus') {
-                        if (currentValue > minValue) {
-                            input.value = currentValue - 1;
-                        }
-                    } else if (type === 'plus') {
-                        if (currentValue < maxValue || !maxValue) {
-                            input.value = currentValue + 1;
-                        }
-                    }
-                }
-            });
-        });
-    });
+   function tang(x){
+      var paren = x.parentNode;
+      var  slcu = paren.previousSibling.previousSibling;
+      var slmoi = parseInt(slcu.value) + 1; 
+      slcu.value = slmoi;
+      var id_pro = paren.nextSibling.nextSibling;
+      $.post("?act=soluong",{
+        "id_sp": id_pro,
+        "soluong": slmoi
+      }, 
+      function(data, textStatus, jqXHR){
+            document.getElementById('cart').innerHTML = data ;
+      }
+      );
+    //   if (soluong<11){
+    //     slcu.value = slmoi;
+    // }
+    // else{
+    //     alert "Số lượng không thể lớn hơn ";
+    // }
+ 
+   }
+   function giam(x){
+      var paren = x.parentNode;
+      var  slcu = paren.nextSibling.nextSibling;
+      var slmoi = parseInt(slcu.value) - 1; 
+      if(slmoi >=1){
+        slcu.value = slmoi;
+      }
+      else{
+        alert ("Số lượng không thể nhỏ hơn 1");
+      }
+ 
+   }
     
     
 </script>

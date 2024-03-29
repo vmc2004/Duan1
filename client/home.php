@@ -130,7 +130,7 @@ foreach($listProduct as $sp){ ?>
             <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>" >
             <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
-            <button type="submit" name="addToCart" class="btn bg-light text-light rounded p-1 position-absolute text-black  top-0 start-0 translate-middl" ><i class="fa-solid fa-cart-plus"></i> </button>
+            <button type="submit" name="addToCart" class="border-0 p-3 position-absolute text-black  top-0 start-0 translate-middl" ><i class="fa-solid fa-cart-plus fa-xl"></i> </button>
      
 
           </div>
