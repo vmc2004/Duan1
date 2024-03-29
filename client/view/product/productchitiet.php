@@ -18,13 +18,13 @@ if($Product['matsan']==2){
 ?>
 
                  </p>
-                <h3 class="text-danger"><?=$Product['price_sp']?>₫</h3>
+                <h3 class="text-danger"><?=number_format((int)$Product['price_sp'], 0, ",", ".")?>₫</h3>
     
                 <!-- Chọn màu -->
                 <div class="container">
                     <div class="row">
-                      <div class="col-md-4">
-                        <h3>Chọn size</h3>
+                      <div class="col-md-4 ml-2">
+                        <p>Chọn size</p>
                         <div class="form-group d-flex">
                         <div>
                       
