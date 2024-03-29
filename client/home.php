@@ -1,4 +1,26 @@
+<style>
+.product .overlay {
+  display: none;
+  transition: opacity 0.5s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.product:hover .overlay {
+  display: flex;
+  opacity: 1;
+}
+
+.product .overlay .content button {
+  display: none;
+}
+
+.product:hover .overlay .content button {
+  display: block;
+}
+
+</style>
 <body>
       
 <div class="container">
@@ -79,13 +101,13 @@
   </div>
 </div>
 
-
+<hr class="container">
 <div class="product-area ">
-<div class="container bg-body-secondary">
-<hr>
+<div class="container ">
+
 <div class="row d-flex ">
     <div class="col-lg-12">
-        <div class="section-title">
+        <div class="section-title ">
             <h3 class="text-center">Sản phẩm nổi bật</h3>
             <div class="product-arrow"></div>
         </div>
@@ -94,27 +116,29 @@
 require_once '../model/List.php';
 $listProduct = top6Product();
 foreach($listProduct as $sp){ ?>
-    <div class="col-lg-3 col-md-4 col-3 pt-3 pb-3 bg-light ">
-<form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
-      <div class="product " >
+    <div class="col-3  mt-3 mb-3 d-flex justify-content-center ">
+      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="text-black" style="text-decoration: none;">
+    <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data" class="position-relative">
+      <div class="product">
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
-        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;" >
+        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
         <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
         <input type="hidden" name="soluong" value="1" >
         <div class="overlay">
           <div class="content">
             <p><?=$sp['name_sp']?></p>
-            <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>">
-            <p class="text-danger fw-bold"> <?=$sp['price_sp']?>₫ </p>
+            <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>" >
+            <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
-            <button class="add-to-cart btn-success text-light rounded shadow " style="height: 33px;">Add To Cart</button>
-            <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>"style="height: 33px;" class="btn bg-dark text-light rounded p-1 ">View Details</a>
+            <button type="submit" name="addToCart" class="btn bg-light text-light rounded p-1 position-absolute text-black  top-0 start-0 translate-middl" ><i class="fa-solid fa-cart-plus"></i> </button>
+     
+
           </div>
         </div>
       </div>
       </form>
+      </a>
     </div>
-
 <?php } ?>
 
 

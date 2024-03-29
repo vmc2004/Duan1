@@ -62,7 +62,8 @@
                   
 
 foreach($Product as $sp){ ?>
-    <div class="col-4 mt-3 mb-3 bg-light d-flex justify-content-center">
+    <div class="col-4 mt-3 mb-3 ">
+    <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="text-black" style="text-decoration: none;">
     <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
       <div class="product">
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
@@ -73,7 +74,7 @@ foreach($Product as $sp){ ?>
           <div class="content">
             <p><?=$sp['name_sp']?></p>
             <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>">
-            <p class="text-danger fw-bold"><?=$sp['price_sp']?>₫ </p>
+            <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
             <button type="submit" name="addToCart" class="add-to-cart bg-success text-light rounded p-1" >Add to cart </button>
       <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
@@ -82,6 +83,7 @@ foreach($Product as $sp){ ?>
         </div>
       </div>
       </form>
+    </a>
     </div>
 
 <?php } ?>
