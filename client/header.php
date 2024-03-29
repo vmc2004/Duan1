@@ -5,25 +5,20 @@
     <meta charset="utf-8"> <script src="lib/font-fontawesome-ae333ffef2.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Trang chủ</title>
-    <style>
-  .navbar-nav .nav-item .nav-link:hover {
-    color: red;
-  }
-  .navbar-nav .nav-item .nav-link.active {
-    color: red !important;
-  }
-  </style>
+   <link rel="stylesheet" href="../public/header.css">
     <link rel="stylesheet" href="../public/css.css">
     <link rel="stylesheet" href="../public//profile.css">
     <link rel="stylesheet" href="../public//user.css">
     <link rel="stylesheet" href="./lib/bootstrap.css">
+    <script src="../public/home.js"></script>
     <link rel="stylesheet" href="../public/css.css">
+    <!-- <link rel="stylesheet" href="../public/index.css"> -->
     <script src="../public/header.js"></script>
     <script src="../lib/bootstrap.css"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="../lib/font-fontawesome-ae333ffef2.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="../lib/font-fontawesome-ae333ffef2.js"></script>
 </head>
   <body>
     <header>
@@ -38,7 +33,7 @@
             <div class="ms-auto p-3 " style="width:700px;">
               <form class="d-flex " role="search" method="POST" action="?act=search" >
                 <input class="form-control me-2" type="search" name="content" placeholder="Bạn đang tìm kiếm..." aria-label="Search">
-                <button class="btn btn-outline-success" name="search" type="submit">Search</button>
+                <button class="btn btn-outline-success" name="search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
               </form>
             </div>
             <!-- kết thúc thanh tìm kiếm  -->
@@ -66,7 +61,7 @@ else{
             <!-- kết thúc giỏ hàng  -->
             
             <!-- Login -->
-            <div class="ms-2 p-3">
+            <div class="ms-2 p-3" id="login">
               <?php
                if(isset($_SESSION['user'])){
               ?>
@@ -115,7 +110,7 @@ else{
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav">
-                <li class="nav-item">
+                <li class="nav-item pr-3">
                   <a class="nav-link fw-bold active" aria-current="page" href="index.php">Trang chủ</a>
                 </li>
                 <li class="nav-item">
