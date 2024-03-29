@@ -28,9 +28,12 @@
                         </tr>
                     </thead>
                     <tbody>
-						<?php foreach($Cart as $ca){
+
+						<?php
+                        $total = 0 ;
+                        foreach($Cart as $ca){
 							$total_price = $ca['price_sp'] * $ca['soluong'];
-							
+							$total += $total_price;
 							?>
                         <tr class="cart_item container  ">
                             <td>
@@ -40,24 +43,31 @@
                             <td><?=$ca['name_sp']?></td>
 							<td><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail"
                                     src="../img/<?=$ca['image_sp']?>"></td>
-s                            <td><span>$<?=$ca['price_sp']?></span></td>
+s                            <td><span><?=number_format((int)$ca['price_sp'], 0, ",", ".")?>₫</span></td>
                             <td>
-                                <div class="quantity buttons_added">
-                                    <input type="button" class="minus" value="-">
-                                    <input type="number" size="4" class="input-text qty text text-center" title="Qty" value="1"
-                                        min="0" step="1">
-                                    <input type="button" class="plus" value="+">
-                                    
+                                <!-- Tăng giảm số lươngj  -->
+                            
+                                <div class="input-group">
+                                <button class="btn btn-outline-secondary btn-number" type="button" data-type="minus" data-field="quantity[<?=$ca['id_sp']?>]">
+                                <i class="fa-solid fa-minus"></i>
+                                </button>
+                                <input type="text" name="quantity[<?=$ca['id_sp']?>]" class="form-control input-number" value="<?=$ca['soluong']?>" min="1" style="width: 10px; height: 40px;">
+                                <button class="btn btn-outline-secondary btn-number" type="button" data-type="plus" data-field="quantity[<?=$ca['id_sp']?>]">
+                                <i class="fa-solid fa-plus"></i>
+                                </button>
                                 </div>
+                            
+
+                             <!-- kết thúc tăng giảm  -->
                                 
                             </td>
-                            <td>$<?=$total_price?> </td>
+                            <td><?=number_format((int)$total_price, 0, ",", ".")?>₫ </td>
                             
                         </tr>
 						<?php } ?>
                         <tr>
                             <td colspan="6" align="right"><strong>Tổng tiền:</strong></td>
-                            <td align="right"><strong>₫</strong></td> 
+                            <td align="right"><strong><?=number_format((int)$total, 0, ",", ".")?>₫</strong></td> 
                         </tr>
                         <td colspan="6">
                             <div class="coupon">
@@ -75,3 +85,30 @@ s                            <td><span>$<?=$ca['price_sp']?></span></td>
                 </table>
             </div>
         </form>
+        <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btns = document.querySelectorAll('.btn-number');
+        btns.forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                var type = this.getAttribute('data-type');
+                var input = document.querySelector('input[name="' + this.getAttribute('data-field') + '"]');
+                var currentValue = parseInt(input.value);
+                var minValue = parseInt(input.getAttribute('min'));
+                var maxValue = parseInt(input.getAttribute('max'));
+                if (!isNaN(currentValue)) {
+                    if (type === 'minus') {
+                        if (currentValue > minValue) {
+                            input.value = currentValue - 1;
+                        }
+                    } else if (type === 'plus') {
+                        if (currentValue < maxValue || !maxValue) {
+                            input.value = currentValue + 1;
+                        }
+                    }
+                }
+            });
+        });
+    });
+    
+    
+</script>
