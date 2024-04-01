@@ -28,5 +28,32 @@ function searchnbyid_dm($id_dm){
     $Product = pdo_query($sql);
     return $Product;
 }
+function load(){
+    $sql = "SELECT * FROM `sanpham`";
+    $list = pdo_query($sql);
+    return $list;
+}
+function loadAllProduct_admin($page, $soSp) {
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
+
+    $batdau = ($page - 1) * $soSp;
+    // Sửa lại cách nối chuỗi trong truy vấn
+    $sql = "SELECT * FROM `sanpham` LIMIT ".$batdau.",".$soSp;
+    $list = pdo_query($sql);
+    return $list;
+}
+
+function hien_thi_so_trang($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=list-products&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
+
 
 ?>

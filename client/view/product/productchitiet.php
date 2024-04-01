@@ -92,17 +92,22 @@ if($Product['matsan']==2){
                $id_dm = $_GET['id_dm'];
                $Product = productrelated ($id_dm);
                foreach($Product as $sp){ ?>
+
       <div class="col-3  pd-3  mt-3 mb-3 ">
+    <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="text-black" style="text-decoration: none;">
+
       <div class="product" >
         <img src="../img/<?=$sp['image_sp']?>" alt="Image Product" style="min-height: 270px; max-width:300px;" >
         <div class="overlay">
           <div class="content">
-            <h3><?=$sp['name_sp']?></h3>
-            <p>Price : $   <?=$sp['price_sp']?> </p>
+            <p><?=$sp['name_sp']?></p>
+            <p class="text-danger"> <?=$sp['price_sp']?>₫ </p>
             <button class="add-to-cart btn-success text-light rounded shadow " style="height: 33px;">Add To Cart</button>
             <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>"><button class="view-details bg-dark text-light rounded p-1 " style="height: 33px;">View Details</button></a>
           </div>
         </div>
+      
+    </a>
         </div>
     </div>
 
@@ -137,7 +142,7 @@ if($Product['matsan']==2){
                     
                     <span><?=$comment['content_cmt']?></span>
                 </div> 
-                <p class="post-time">Thời gian:<?php
+                <p class="post-time"><?php
                               if($days >0){
                                 echo $days." ngày trước";
                               }

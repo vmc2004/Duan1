@@ -25,7 +25,7 @@
                   <div class="kenne-sidebar_categories category-module">
                     <div class="kenne-categories_title">
                       <br>
-                      <h5>Danh mục sản phẩm</h5>
+                      <h5>Tìm kiếm theo thương hiệu</h5>
                     </div>
                     <div class="sidebar-categories_menu">
                       <ul>
@@ -46,15 +46,14 @@
         
             <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
            
-              <select name="" id="">
+              <select class="select-filter" name="" id="select-filter">
                 <option value="">Bộ lọc</option>
-                <option value="">Giá tăng dần</option>
-                <option value="">Giá giảm dần</option>
-                <option value="">Bán chạy</option>
-                <option value=""><a href="index.php?act=giay-tunhien" class="btn ">Sân cỏ tự nhiên</a></option>
-                <option value=""><a href="index.php?act=giay-nhantao">Sân cỏ nhân tạo</a></option>
+                <option value="?act=a-z">Giá tăng dần</option>
+                <option value="?act= z-a">Giá giảm dần</option>
+                <option value="?act=tu-nhien">Sân cỏ tự nhiên</option>
+                <option value="?act=nhan-tao">Sân cỏ nhân tạo</option>
               </select>
-            
+              
               <section>
                 <div class="container text-center">
                   <div class="row">
@@ -76,8 +75,8 @@ foreach($Product as $sp){ ?>
             <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>">
             <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
-            <button type="submit" name="addToCart" class="add-to-cart bg-success text-light rounded p-1" >Add to cart </button>
-      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
+            <button type="submit" name="addToCart" class=" bg-success text-light rounded p-1" >Add to cart </button>
+            <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="btn bg-dark text-light rounded p-1 ">View Details</a>
 
           </div>
         </div>
@@ -88,18 +87,51 @@ foreach($Product as $sp){ ?>
 
 <?php } ?>
               </section>
-              <div class="container mt-2 d-flex justify-content-center">
+              <div class="container mt-2 d-flex justify-content-center pagination" id="pagination">
                 
               
-                <ul class="pagination text-dark">
-                  <li class="page-item"><a class="page-link text-black" href="#">Previous</a></li>
-                  <li class="page-item"><a class="page-link text-black" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link text-black" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link text-black" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link text-black" href="#">Next</a></li>
-                </ul>
+               
+                  <a class="page-link text-black" href="#">Previous</a>
+                  <a class="page-link text-black" href="index.php?act=list-products&page=1">1</a>
+                  <a class="page-link text-black" href="index.php?act=list-products&page=2">2</a>
+                  <a class="page-link text-black" href="index.php?act=list-products&page=3">3</a>
+                  <a class="page-link text-black" href="#">Next</a>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
+      <script>
+        $('.select-filter').change(function(){
+          var value = $(this).find(':selected').val();
+          alert(value);
+
+
+
+        })
+        $(function() {
+    var items = $(".row .col-4");
+    var numItems = items.length;
+    var perPage = 9;
+
+    // Ẩn tất cả sản phẩm sau số sản phẩm trên mỗi trang
+    items.slice(perPage).hide();
+
+    // Kích hoạt simplePagination
+    $('#pagination').pagination({
+        items: numItems,
+        itemsOnPage: perPage,
+        prevText: "Trước",
+        nextText: "Sau",
+        onPageClick: function(pageNumber) {
+            var showFrom = perPage * (pageNumber - 1);
+            var showTo = showFrom + perPage;
+            items.hide().slice(showFrom, showTo).show();
+        }
+    });
+});
+
+
+      
+      </script>

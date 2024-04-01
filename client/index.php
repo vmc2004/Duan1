@@ -13,6 +13,7 @@ if(isset($_GET['act'])) {
   switch ($act) {
     case 'all-product':
       $Product = loadAllProduct();
+     
       require_once './view/product/product.php';
       break;
       case '/':
@@ -167,6 +168,11 @@ if(isset($_GET['act'])) {
           
           require_once './view/product/product.php';
           break;
+        case 'phukien':
+          $Product =phukien();
+          
+          require_once './view/product/product.php';
+          break;
         case 'comment':
           if(isset($_POST['comment'])){
             $cmt = $_POST['cmt'];
@@ -177,6 +183,8 @@ if(isset($_GET['act'])) {
             
           }
           break;
+        case 'bo-loc':
+          if(isset($_GET['']));
       
          
   }

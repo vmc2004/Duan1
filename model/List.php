@@ -3,6 +3,7 @@ require_once 'pdo.php';
 function loadAllProduct(){
     $sql = "SELECT * FROM `sanpham` ";
    $listProduct =  pdo_query($sql);
+   
    return $listProduct;
 }
 function loadProductById($id_sp){
@@ -31,7 +32,13 @@ function tunhien(){
     $result = pdo_query($sql);
     return $result;
     
-}
 
+}
+function phukien(){
+    $sql = "SELECT * FROM `sanpham` WHERE matsan = '3'";
+    $result = pdo_query($sql);
+    return $result;
+    
+}
 
 ?>
