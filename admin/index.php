@@ -42,6 +42,16 @@ if(isset($_GET['act'])) {
             require_once '../admin/categories/update.php';
             break;
         case 'list-products':
+            if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            $soSp = 5;
+            $list = loadAllProduct_admin($page,$soSp);
+            $total = load();
+            $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
             require_once '../admin/products/list.php';
             break;
         case 'add-product':

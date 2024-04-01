@@ -15,10 +15,14 @@
     <!-- <link rel="stylesheet" href="../public/index.css"> -->
     <script src="../public/header.js"></script>
     <script src="../lib/bootstrap.css"></script>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="path/to/jquery.simplePagination.js"></script>
+    <link rel="stylesheet" type="text/css" href="path/to/simplePagination.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="../lib/font-fontawesome-ae333ffef2.js"></script>
-    <script src="../lib/font-fontawesome-ae333ffef2.js"></script>
+  
 </head>
   <body>
     <header>
@@ -123,7 +127,7 @@ else{
                   <a class="nav-link fw-bold" href="index.php?act=giay-nhantao">Giày cỏ nhân tạo</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=all-product">Giày fultsal</a>
+                  <a class="nav-link fw-bold" href="index.php?act=phukien">Phụ kiện</a>
                 </li>
                 <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

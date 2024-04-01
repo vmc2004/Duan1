@@ -31,7 +31,7 @@
             <select name="matsan" id="">
                 <option value="1">Cỏ nhân tạo</option>
                 <option value="2">Cỏ tự nhiên</option>
-                <option value="3">Futsal</option>
+                <option value="3">Phụ kiện</option>
             </select>
         </div>
         <div class="form-group">

@@ -14,9 +14,7 @@
      </thead>
      <tbody>
         <?php 
-        require_once '../model/pdo.php';
-          $sql="SELECT * FROM `sanpham`";
-          $list = pdo_query($sql);
+        
         foreach($list as $pro){
           $sua = "index.php?act=update-product&id_sp=".$pro['id_sp']."&id_dm=".$pro['id_dm'];
           $xoa = "index.php?act=delete-product&id_sp=".$pro['id_sp'];
@@ -36,5 +34,14 @@
         <?php } ?>
 
      </tbody>
+
 </table>
+<div class="container mt-2 d-flex justify-content-center pagination" id="pagination">
+                
+          
+               <?php
+                  echo $hien_thi_so_trang;
+               ?>
+              
+            </div>
 <a href="index.php?act=add-product" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Thêm sản phẩm</a>
