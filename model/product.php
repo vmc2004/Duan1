@@ -40,7 +40,11 @@ function loadAllProduct_admin($page, $soSp) {
 
     $batdau = ($page - 1) * $soSp;
     // Sửa lại cách nối chuỗi trong truy vấn
-    $sql = "SELECT * FROM `sanpham` LIMIT ".$batdau.",".$soSp;
+    $sql = "SELECT sp.id_sp, sp.name_sp, sp.price_sp, sp.id_dm, sp.thongso, sp.desc_sp, sp.soluong, sp.image_sp, sp.luotban, sp.matsan, dm.name_dm  FROM `sanpham` as sp
+    INNER JOIN `danhmuc` as dm 
+    ON sp.id_dm = dm.id_dm
+    ORDER BY id_sp 
+    LIMIT ".$batdau.",".$soSp;
     $list = pdo_query($sql);
     return $list;
 }
@@ -53,6 +57,20 @@ function hien_thi_so_trang($total,$soSp){
         $html .= ' <a class="page-link text-black" href="index.php?act=list-products&page='.$i.'">'.$i.'</a>';
     }
     return $html;
+}
+function search_admin($content,$page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
+
+    $batdau = ($page - 1) * $soSp;
+    $sql= "SELECT sp.id_sp, sp.name_sp, sp.price_sp, sp.id_dm, sp.thongso, sp.desc_sp, sp.soluong, sp.image_sp, sp.luotban, sp.matsan, dm.name_dm  FROM `sanpham` as sp
+    INNER JOIN `danhmuc` as dm 
+    ON sp.id_dm = dm.id_dm
+    WHERE name_sp
+    LIKE '%$content%' LIMIT ".$batdau.",".$soSp."";
+    $result = pdo_query($sql);
+    return $result;
 }
 
 

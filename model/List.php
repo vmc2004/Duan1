@@ -1,9 +1,11 @@
 <?php
 require_once 'pdo.php';
 function loadAllProduct(){
-    $sql = "SELECT * FROM `sanpham` ";
+    $sql = "SELECT sp.id_sp, sp.name_sp, sp.price_sp, sp.id_dm, sp.thongso, sp.desc_sp, sp.soluong, sp.image_sp, sp.luotban, sp.matsan, dm.name_dm  FROM `sanpham` as sp
+    INNER JOIN `danhmuc` as dm 
+    ON sp.id_dm = dm.id_dm"
+    ;
    $listProduct =  pdo_query($sql);
-   
    return $listProduct;
 }
 function loadProductById($id_sp){
@@ -13,6 +15,11 @@ function loadProductById($id_sp){
 }
 function top6Product(){
     $sql = "SELECT * FROM `sanpham` ORDER BY luotban DESC LIMIT 0,4";
+   $listProduct =  pdo_query($sql);
+   return $listProduct;
+}
+function NewProduct(){
+    $sql = "SELECT * FROM `sanpham` ORDER BY id_sp DESC LIMIT 0,4 ";
    $listProduct =  pdo_query($sql);
    return $listProduct;
 }

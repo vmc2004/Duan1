@@ -7,7 +7,9 @@
             <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
         <input type="hidden" name="name_sp" value="<?=$Product['name_sp']?>">
         <input type="hidden" name="image_sp" value="<?=$Product['image_sp']?>">
-        <input type="hidden" name="soluong" value="<?=$Product['soluong']?>">
+     
+        <input type="hidden" name="price_sp" value="<?=$Product['price_sp']?>">
+
         <input type="hidden" name="id_sp" value="<?=$_GET['id_sp']?>">
                 <img src="../img/<?=$Product['image_sp']?>" alt="Product Image" class="img-fluid" name="image">
                 
@@ -61,7 +63,7 @@ if($Product['matsan']==2){
                   <p>Số lượng</p>
                   <div>
         <a class="btn border" onclick="decreaseQuantity()">-</a>
-        <input type="number" name="soluong" id="quantityInput" value="1" min="1" style="width: 50px; height: 30px;">
+        <input type="number" name="soluongcart" id="quantityInput" value="1" min="1" max="<?=$Product['soluong']?>" style="width: 50px; height: 30px;">
         <a class="btn border" onclick="increaseQuantity()">+</a>
     </div>
     <br>
@@ -76,11 +78,14 @@ if($Product['matsan']==2){
         <!-- Thông số kỹ thuật -->
       
         <div class="row mt-4">
-            <div class="col-lg-12">
+            <div class="col-lg-12 fs-5 ">
                 <h3>Mô tả chi tiết</h3>
-               <p>
-               <?=$Product['desc_sp']?>
-               </p>
+                <p id="detailDescription" style="max-height: 300px; overflow: hidden;">
+    <?=nl2br($Product['desc_sp'])?>
+</p>
+
+<a href="#" class="d-flex justify-content-center" onclick="expandDescription()" id="toggleDescription">Xem thêm</a>
+
             </div>
         </div>
         <h3>Sản phẩm khác</h3>
@@ -188,6 +193,19 @@ function decreaseQuantity() {
     var currentValue = parseInt(input.value);
     if (currentValue > 1) {
         input.value = currentValue - 1;
+    }
+}
+
+function expandDescription() {
+    var description = document.getElementById("detailDescription");
+    var toggleLink = document.getElementById("toggleDescription");
+
+    if (description.style.maxHeight === "300px") {
+        description.style.maxHeight = "none";
+        toggleLink.textContent = "Thu gọn";
+    } else {
+        description.style.maxHeight = "300px";
+        toggleLink.textContent = "Xem thêm";
     }
 }
 </script>

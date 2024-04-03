@@ -1,9 +1,9 @@
 <?php
 require_once 'pdo.php';
-function loadCart(){
+function loadCart($idList){
     $sql="SELECT ca.id_cart, ca.id_sp, ca.soluong, sp.name_sp, sp.image_sp, sp.price_sp FROM `cart` as ca
     INNER JOIN   `sanpham` as sp
-    ON ca.id_sp = sp.id_sp";
+    ON ca.id_sp = sp.id_sp WHERE id_sp IN (' . $idList . ')";
     $Cart = pdo_query($sql);
     return $Cart;
 }

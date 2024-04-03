@@ -68,7 +68,7 @@ foreach($Product as $sp){ ?>
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
         <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
         <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
-        <input type="hidden" name="soluong" value="1" >
+        <input type="hidden" name="soluongcart" value="1" >
         <div class="overlay">
           <div class="content">
             <p><?=$sp['name_sp']?></p>
@@ -92,7 +92,7 @@ foreach($Product as $sp){ ?>
               
                
                   <a class="page-link text-black" href="#">Previous</a>
-                  <a class="page-link text-black" href="index.php?act=list-products&page=1">1</a>
+                  <a class="page-link text-black" href="?act=page1">1</a>
                   <a class="page-link text-black" href="index.php?act=list-products&page=2">2</a>
                   <a class="page-link text-black" href="index.php?act=list-products&page=3">3</a>
                   <a class="page-link text-black" href="#">Next</a>
@@ -110,27 +110,7 @@ foreach($Product as $sp){ ?>
 
 
         })
-        $(function() {
-    var items = $(".row .col-4");
-    var numItems = items.length;
-    var perPage = 9;
-
-    // Ẩn tất cả sản phẩm sau số sản phẩm trên mỗi trang
-    items.slice(perPage).hide();
-
-    // Kích hoạt simplePagination
-    $('#pagination').pagination({
-        items: numItems,
-        itemsOnPage: perPage,
-        prevText: "Trước",
-        nextText: "Sau",
-        onPageClick: function(pageNumber) {
-            var showFrom = perPage * (pageNumber - 1);
-            var showTo = showFrom + perPage;
-            items.hide().slice(showFrom, showTo).show();
-        }
-    });
-});
+      
 
 
       
