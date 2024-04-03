@@ -27,15 +27,18 @@
 
 						<?php
                         $total = 0 ;
-                        foreach($Cart as $ca){
-							$total_price = $ca['price_sp'] * $ca['soluong'];
-							$total += $total_price;
+                        $id_sp = 0;
+                       if(isset($_SESSION['cart'])){
+                        foreach($cart as $ca){
+                            $total_price = $ca['price_sp'] *$ca['soluongcart'] ;
+                            $id_sp  = $ca['id_sp'];
+                            $total +=$total_price;  
 							?>
                         <tr class="cart_item container  ">
                             <td>
-                            <form method="post" action="?act=delete-cart&id_cart=<?=$ca['id_cart']?>">
+                            <form method="POST" action="?act=delete-cart&id_sp=<?=$id_sp?>">
                                     <!-- Thay đổi 'remove_from_cart.php' thành tên file xử lý của bạn -->
-                                    <input type="hidden" name="cart_id" value="<?=$ca['id_cart']?>"> <!-- Đặt ID sản phẩm để xoá -->
+                                    <input type="hidden" name="cart_id" value="<?=$id_sp?>"> <!-- Đặt ID sản phẩm để xoá -->
                                     <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')"><i class="fa-solid fa-trash"></i></button>
                                 </form>
                             </td>
@@ -53,7 +56,7 @@
                                 <i class="fa-solid fa-minus"></i>
                                 </button>
                             </div>
-                                <input type="text"  class="form-control input-number" value="<?=$ca['soluong']?>" min="1" style="width: 10px; height: 40px;">
+                                <input type="text"  class="form-control input-number" value="<?=$ca['soluongcart']?>" min="1" style="width: 10px; height: 40px;">
                                 <div class="input-group-append">
                                 <button class="btn btn-outline-secondary btn-number" type="button" onclick="tang(this)">
                                 <i class="fa-solid fa-plus"></i>
@@ -69,7 +72,7 @@
                             <td><?=number_format((int)$total_price, 0, ",", ".")?>₫ </td>
                             
                         </tr>
-						<?php } ?>
+						<?php  } } ?>
                         <tr>
                             <td colspan="6" align="right"><strong>Tổng tiền:</strong></td>
                             <td align="right"><strong><?=number_format((int)$total, 0, ",", ".")?>₫</strong></td> 
@@ -81,7 +84,7 @@
                                     name="coupon_code">
                                 <input type="submit" value="Áp dụng" name="apply_coupon" class="btn btn-warning">
                                 <input type="submit" value="Cập nhật" name="update_cart" class="btn btn-danger">
-                                <a href="Paypal.html" class="btn btn-primary">Thanh toán</a>
+                                <a href="?act=check-out" class="btn btn-primary">Thanh toán</a>
 
                             </div>
                         </td>
