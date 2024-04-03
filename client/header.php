@@ -83,7 +83,7 @@ else{
                                 <li><a href="/Duan1/admin/index.php">Truy cập trang admin</a></li>
                             <?php } ?>
                                 <li><a href="index.php?act=profile">Trang cá nhân</a></li>
-                                <li><a href="index.php?act=my-courses">Đơn hàng của tôi</a></li>
+                                <li><a href="index.php?act=my-order">Đơn hàng của tôi</a></li>
                                 <li><a href="index.php?act=logout">Đăng xuất</a></li>
                             </ul>
                         </div>
