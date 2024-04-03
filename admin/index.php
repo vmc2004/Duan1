@@ -54,6 +54,23 @@ if(isset($_GET['act'])) {
             $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
             require_once '../admin/products/list.php';
             break;
+        case 'search':
+            
+            if(isset($_POST['search'])){
+                if(!isset($_GET['page'])){
+                    $page = 1;
+                }
+                else{
+                    $page = $_GET['page'];
+                }
+                $soSp = 5;
+                $list = search_admin($content,$page,$soSp);
+                $content = $_POST['content'];
+                $total = search($content);
+                $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
+                require_once '../admin/products/list.php';
+                }
+                break;            
         case 'add-product':
             require_once '../admin/products/add.php';
             if(isset($_POST['submit'])){
@@ -99,10 +116,7 @@ if(isset($_GET['act'])) {
 
             }
             break;
-        case 'list-products':
 
-            require_once '../admin/product/list.php';
-            break;
         case 'delete-product':
             if(isset($_GET['id_sp'])){
                 $id_sp = $_GET['id_sp'];
@@ -158,6 +172,7 @@ if(isset($_GET['act'])) {
             }
             require_once '../admin/categories/list.php';
             break;
+       
     }
 }
 require_once 'footer.php';
