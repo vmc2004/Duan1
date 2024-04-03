@@ -10,11 +10,14 @@
 .product:hover .overlay {
   display: flex;
   opacity: 1;
+ 
+  
 }
 
 .product .overlay .content button {
   display: none;
 }
+
 
 .product:hover .overlay .content button {
   display: block;
@@ -27,24 +30,26 @@
   <!-- Phần banner  -->
   <div class="row">
     <div class="col">
-      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-interval="2000">
+
         <ol class="carousel-indicators">
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></li>
           <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></li>
+          <li data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3"></li>
         </ol>
         <div class=" carousel-inner">
           <div class="carousel-item active">
             <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_1.jpg?v=1170" class="d-block w-100" alt="Image 1" >
           </div>
           <div class="carousel-item">
-            <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_4.jpg?v=1170" class="d-block w-100" alt="Image 2" >
+           <a href="index.php?act=all-product "> <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_4.jpg?v=1170" class="d-block w-100" alt="Image 2" ></a>
           </div>
           <div class="carousel-item">
             <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_7.jpg?v=1170" class="d-block w-100" alt="Image 3" >
           </div>
           <div class="carousel-item">
-            <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_7.jpg?v=1170" class="d-block w-100" alt="Image 3" >
+            <img src="https://theme.hstatic.net/200000278317/1000929405/14/slideshow_7.jpg?v=1170" class="d-block w-100" alt="Image 4" >
           </div>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
@@ -121,9 +126,9 @@ foreach($listProduct as $sp){ ?>
     <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data" class="position-relative">
       <div class="product">
         <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
-        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
+        <img src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; width:300px;" class="justify-content-center" >
         <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
-        <input type="hidden" name="soluong" value="1" >
+        <input type="hidden" name="soluongcart" value="1" >
         <div class="overlay">
           <div class="content">
             <p><?=$sp['name_sp']?></p>
@@ -131,6 +136,48 @@ foreach($listProduct as $sp){ ?>
             <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
             <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
             <button type="submit" name="addToCart" class="border-0 p-3 position-absolute text-black  top-0 start-0 translate-middl" ><i class="fa-solid fa-cart-plus fa-xl"></i> </button>
+     
+
+          </div>
+        </div>
+      </div>
+      </form>
+      </a>
+    </div>
+<?php } ?>
+
+
+
+
+</div>
+<hr class="container mb-5"> 
+<div class="row d-flex ">
+    <div class="col-lg-12">
+        <div class="section-title ">
+            <h3 class="text-center">Sản phẩm mới</h3>
+            <div class="product-arrow"></div>
+        </div>
+    </div>
+    <?php
+require_once '../model/List.php';
+$listProduct = NewProduct();
+foreach($listProduct as $sp){ ?>
+    <div class="col-3  mt-3 mb-3 d-flex justify-content-center ">
+      <a href="?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>" class="text-black" style="text-decoration: none;">
+    <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data" class="position-relative">
+      <div class="product">
+        <input type="hidden" name="id_sp" value="<?=$sp['id_sp']?>">
+        <img id="image" src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
+        <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
+        <input type="hidden" name="soluongcart" value="1" >
+        <div class="overlay">
+          <div class="content">
+            <p><?=$sp['name_sp']?></p>
+            <input type="hidden" name="name_sp" value="<?=$sp['name_sp']?>" >
+            <p class="text-danger fw-bold"><?=number_format((int)$sp['price_sp'], 0, ",", ".")?>₫ </p>
+            <input type="hidden" name="price_sp" value="<?=$sp['price_sp']?>">
+            <button type="submit" name="addToCart" class="border-0 p-3 position-absolute text-black  top-0 start-0 translate-middl" ><i class="fa-solid fa-cart-plus fa-xl"></i> </button>
+            <a  name="" class="btn btn-danger   position-absolute text-white  top-0 end-0 " ><span>Mới ra mắt </span></a>
      
 
           </div>

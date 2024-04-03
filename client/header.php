@@ -27,7 +27,7 @@
   <body>
     <header>
       <div class="container-fluid ">
-      <div class="container d-flex">
+      <div class="container-fluid d-flex">
           <a class="navbar-brand p-3" href="index.php">
               <img src="https://theme.hstatic.net/200000278317/1000929405/14/logo_medium.png?v=1170" alt="Logo website" width="150" >
             </a>
@@ -48,14 +48,15 @@
                 <a href="?act=cart"> <i class="fa-solid fa-cart-shopping fa-2xl text-dark"></i></a>
                 <span class="badge bg-light text-danger rounded-pill position-absolute top-0 end-0">
 <?php 
-if(isset($_SESSION['user'])){
-  require_once '../model/cart.php';
-$count = count_sp();
-echo $count['0']['COUNT(id_cart)'];
+
+if(isset($_SESSION['cart'])){
+  $count = count($_SESSION['cart']);
+echo $count;
 }
 else{
-  
+  echo "0"; 
 }
+
 ?>
 
                 </span>
