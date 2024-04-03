@@ -143,14 +143,26 @@ if(isset($_GET['act'])) {
         case 'delete-cart':
         
           if(isset($_POST['delete']) ) {
-            $id_sp = $_GET['id_sp']; // Lấy ID sản phẩm từ form
+            $id_sp = $_POST['cart_id']; // Lấy ID sản phẩm từ form
         
             // Kiểm tra xem sản phẩm có trong giỏ hàng không
-            if(isset($_SESSION['cart'][$id_sp])) {
-                unset($_SESSION['cart'][$id_sp]); // Xóa sản phẩm khỏi giỏ hàng
-            }
-         //   header("location: ?act=cart");
+            
+            if(!empty($_SESSION['cart'])) {
+              // Kiểm tra sản phẩm đã có trong giỏ hàng chưa
+              $index = array_search($id_sp, array_column($_SESSION['cart'], 'id_sp'));
+      
+              // Nếu sản phẩm tồn tại thì cập nhật lại số lượng
+              if($index !== false) {
+                  // Xóa sản phẩm khỏi giỏ hàng
+                  unset($_SESSION['cart'][$index]);
+                  $_SESSION['cart'] = array_values($_SESSION['cart']);
+              } else {
+                  echo 'Sản phầm ko tồn tại trong giỏ hàng';
+              }
           }
+           header("location: ?act=cart");
+          }
+          break;
         
         case 'check-out':
           if(!empty($_SESSION['cart'])){
@@ -161,6 +173,51 @@ if(isset($_GET['act'])) {
            }
            
           require_once 'checkout.php';
+          break;
+        case 'thanhtoan':
+        if(isset($_SESSION['cart'])){
+          if(isset($_POST['thanhtoan'])){
+            $id_user = $_POST['id_user'];
+            $name_user = $_POST['name_user']; 
+            $diachi = $_POST['address_user'];
+            $ngaytao = date('Y-m-d');
+            $tongbill = $_SESSION['tongbill'] ;
+            $trangthai = $_POST['trangthai'];
+            $trangthaitt = $_POST['trangthaitt'];
+            $pttt = $_POST['pttt'];
+            if ($pttt == 2) {
+              header('Location: ?act=ttqrmomo');
+              die();
+              
+          }
+          if ($pttt == 3) {
+            $trangthai = 2;
+            $trangthaitt = 1;
+            $idBill = insert_hoadon($ngaytao, $pttt, $tongbill, $trangthai, $trangthaitt, $id_user);
+            foreach ($_SESSION['cart'] as $carttt) {
+              insert_billhoadon($idBill, $carttt['id_sp'], $carttt['name_sp'], $carttt['price_sp'], $carttt['soluongcart'], $tongtien = $carttt['tongbill'] );
+          }
+          include('view/thanhtoan/ttATMmomo.php');
+                        break;
+          }
+         
+          $tbdh = "Đặt hàng thành công! Cảm ơn quý khách đã ủng hộ shop của chúng tôi!";
+                    unset($_SESSION['giohang']);
+                    unset($_SESSION['tongdh']);
+                    
+                    break;
+        
+          
+          }
+          else {
+            header('Location: ?act=cart');
+            die();
+
+        }
+      }
+          break;
+        case 'ttqrmomo':
+          include('view/thanhtoan/xulyttmomo.php');
           break;
         case 'search':
           if(isset($_POST['search'])){
@@ -203,8 +260,18 @@ if(isset($_GET['act'])) {
             
           }
           break;
-        case 'bo-loc':
-          if(isset($_GET['']));
+        case 'my-order':
+          require_once 'view/users/my-order.php';
+          
+          break;
+        case 'view-bill':
+          if(isset($_GET['id_bill'])){
+            $id_bill = $_GET['id_bill'];
+            $listbhd = select_billhoadon($id_bill);
+          }
+          require_once 'view/users/chitiet_bill.php';
+          break;
+
       
          
   }

@@ -1,24 +1,29 @@
 <?php
 require_once 'pdo.php';
-function loadCart($idList){
-    $sql="SELECT ca.id_cart, ca.id_sp, ca.soluong, sp.name_sp, sp.image_sp, sp.price_sp FROM `cart` as ca
-    INNER JOIN   `sanpham` as sp
-    ON ca.id_sp = sp.id_sp WHERE id_sp IN (' . $idList . ')";
-    $Cart = pdo_query($sql);
-    return $Cart;
+function insert_hoadon($ngaydh, $pttt, $tongbill, $trangthai, $trangthaitt, $iduser)
+{
+    $sql = "insert into bill(ngaydat, pttt, tongbill, trangthai, trangthaitt, id_user) 
+            values('$ngaydh', '$pttt', '$tongbill', '$trangthai', '$trangthaitt', '$iduser')";
+    $id = pdo_executeid($sql);
+    return $id;
 }
-function AddToCart($id_sp,$name_sp,$price_sp,$soluong,$image_sp){
-    $sql="INSERT INTO `cart`(`id_sp`, `SoLuong`, `name_sp`, `price_sp`,`image_sp`) VALUES ('$id_sp','$soluong','$name_sp','$price_sp','$image_sp')";
+
+
+function insert_billhoadon($idBill, $id_sp, $name_sp, $price_sp, $soluong_sp, $tongtien)
+{
+    $sql = "insert into cart(id_sp, name_sp, price_sp, soluong_sp, tong_tien, id_bill) 
+            values('$id_sp', '$name_sp', '$price_sp', '$soluong_sp', '$tongtien', '$idBill')";
     pdo_execute($sql);
-    
 }
-function count_sp(){
-    $sql="SELECT COUNT(id_cart) FROM cart";
-    $count = pdo_query($sql);
-    return $count;
+function select_hoadon(){
+    $sql= "SELECT * FROM `bill` ORDER BY id_bill DESC";
+    $result = pdo_query($sql);
+    return $result;
 }
-function deleteCart($id_cart){
-    $sql="DELETE FROM `cart` WHERE id_cart = $id_cart";
-    pdo_execute($sql);
+function select_billhoadon($id_bill)
+{
+    $sql = "SELECT * FROM `bill` WHERE id_bill = $id_bill";
+    $listbhd = pdo_query($sql);
+    return $listbhd;
 }
 ?>
