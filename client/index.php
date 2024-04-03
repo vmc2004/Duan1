@@ -104,42 +104,62 @@ if(isset($_GET['act'])) {
       }
         break;    
       case 'cart':
-     if(!isset($_SESSION['user'])){
-      header("location: ?act=login");
-
-
+     if(!empty($_SESSION['cart'])){
+      $cart = $_SESSION['cart'];
+     
+       
+      // $Cart = loadCart($idList);
      }
-     $Cart = loadCart();
+     
      require_once 'cart.php';      
 
   
      
         break;   
       case 'add-to-cart':
-       if(isset($_SESSION['user'])){
+        if(!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
         if(isset($_POST['addToCart'])){
           $id_sp = $_POST['id_sp'];
           $name_sp = $_POST['name_sp'];
-          $soluong = $_POST['soluong'];
+          $soluongcart = $_POST['soluongcart'];
           $price_sp = $_POST['price_sp'];
           $image_sp = $_POST['image_sp'];
-          AddToCart($id_sp,$name_sp,$price_sp,$soluong,$image_sp);
-          header("location: ?act=cart");
-          exit();
-        }
+          $cart =[
+            'id_sp'=>$id_sp,
+            'name_sp'=>$name_sp,
+            'price_sp'=> $price_sp,
+            'soluongcart'=>$soluongcart,
+            'image_sp'=>$image_sp
+          ];
+
+          $_SESSION['cart'][] = $cart;
+          
+        header("location: ?act=cart");
+        exit();
+        
        }
-       else{
-        header('location: ?act=login');
-       }
+      
         break;
         case 'delete-cart':
-          if(isset($_POST['delete'])){
-            $id_cart = $_GET['id_cart'];
-            deleteCart($id_cart);
-            header("location: ?act=cart");
-            
+        
+          if(isset($_POST['delete']) ) {
+            $id_sp = $_GET['id_sp']; // Lấy ID sản phẩm từ form
+        
+            // Kiểm tra xem sản phẩm có trong giỏ hàng không
+            if(isset($_SESSION['cart'][$id_sp])) {
+                unset($_SESSION['cart'][$id_sp]); // Xóa sản phẩm khỏi giỏ hàng
+            }
+         //   header("location: ?act=cart");
           }
+        
         case 'check-out':
+          if(!empty($_SESSION['cart'])){
+            $cart = $_SESSION['cart'];
+           
+             
+            // $Cart = loadCart($idList);
+           }
+           
           require_once 'checkout.php';
           break;
         case 'search':
