@@ -34,38 +34,38 @@
             <ul class="nav-links m-0 p-0">
                 <li><a href="index.php">
                     <i class="uil uil-estate"></i>
-                    <span class="link-name">Home</span>
+                    <span class="link-name">Trang chủ</span>
                 </a></li>
                 <li><a href="?act=list-categories">
                     <i class="uil uil-align-left"></i>
-                    <span class="link-name">Categories</span>
+                    <span class="link-name">Danh mục</span>
                 </a></li>
                 <li><a href="?act=list-products">
                     <i class="uil uil-book-alt"></i>
-                    <span class="link-name">Products</span>
+                    <span class="link-name">Sản phẩm</span>
                 </a></li>
                 <li><a href="?act=list-carts">
                     <i class="uil uil-question-circle"></i>
-                    <span class="link-name">Order</span>
+                    <span class="link-name">Đơn hàng</span>
                 </a></li>
                 <li><a href="?act=list-posts">
                     <i class="uil uil-newspaper"></i>
-                    <span class="link-name">Posts</span>
+                    <span class="link-name">Bài viết</span>
                 </a></li>
                 <li><a href="?act=comments">
                     <i class="uil uil-comment-alt-dots"></i>
-                    <span class="link-name">Comment</span>
+                    <span class="link-name">Bình luận</span>
                 </a></li>
                 <li><a href="?act=list-users">
                     <i class="uil uil-users-alt"></i>
-                    <span class="link-name">Users</span>
+                    <span class="link-name">Tài khoản</span>
                 </a></li>
             </ul>
             
             <ul class="logout-mode m-0 p-0">
                 <li><a href="#">
                     <i class="uil uil-signout"></i>
-                    <span class="link-name">Logout</span>
+                    <span class="link-name">Đăng xuất</span>
                 </a></li>
 
                 <li class="mode">
@@ -86,10 +86,7 @@
         <div class="top">
             <i class="uil uil-bars sidebar-toggle"></i>
 
-            <div class="search-box">
-                <i class="uil uil-search"></i>
-                <input type="text" placeholder="Search here...">
-            </div>
+            
             
             <!--<img src="images/profile.jpg" alt="">-->
            
