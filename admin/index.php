@@ -5,6 +5,7 @@ require_once 'header.php';
 require_once '../model/pdo.php';
 require_once '../model/category.php';
 require_once '../model/product.php';
+require_once '../model/user.php';
 
 
 if(isset($_GET['act'])) {
@@ -126,33 +127,45 @@ if(isset($_GET['act'])) {
             }
             
             break;    
-        case 'update-product':
-            if(isset($_GET['id_sp'])){
-                $id_sp = $_GET['id_sp'];
-                
-                $info = LoadProById($id_sp);
-                if(isset($_POST['update-product'])){
+            case 'update-product':
+                if(isset($_GET['id_sp'])){
                     $id_sp = $_GET['id_sp'];
-                    $category =  $_POST['category'];
-                $product_name = $_POST['product_name'];
-                $product_price = $_POST['product_price'];
-                $product_desc = $_POST['product_desc'];
-                $product_quantity = $_POST['product_quantity'];
-                $product_avatar = basename($_FILES['product_avatar']['name']);
-
-                // Di chuyển tệp ảnh vào thư mục img
-                $target_dir = "../img/";
-                $target_file = $target_dir . $product_avatar;
-                move_uploaded_file($_FILES["product_avatar"]["tmp_name"], $target_file);
-                updateProduct($id_sp,$category,$product_name,$product_price,$product_desc,$product_quantity,$product_avatar);
-                header("location: index.php?act=list-products");
-                exit();
-
-                }
-            }
+                    
+                    $info = LoadProById($id_sp);
+                    if(isset($_POST['update-product'])){
+                        $id_sp = $_GET['id_sp'];
+                        $category =  $_POST['category'];
+                        $product_name = $_POST['product_name'];
+                        $product_price = $_POST['product_price'];
+                        $product_desc = $_POST['product_desc'];
+                        $product_quantity = $_POST['product_quantity'];
+                        $product_avatar = '';
             
-            require_once '../admin/products/update.php';
-            break;
+                        // Kiểm tra xem người dùng đã chọn ảnh mới hay không
+                        if(isset($_FILES['product_avatar']) && $_FILES['product_avatar']['size'] > 0){
+                            $product_avatar = basename($_FILES['product_avatar']['name']);
+                            // Di chuyển tệp ảnh vào thư mục img
+                            $target_dir = "../img/";
+                            $target_file = $target_dir . $product_avatar;
+                            move_uploaded_file($_FILES["product_avatar"]["tmp_name"], $target_file);
+                        }
+            
+                        // Kiểm tra xem người dùng đã chọn ảnh mới hoặc không
+                        // Nếu người dùng không chọn ảnh mới thì giữ nguyên ảnh cũ
+                        if($product_avatar == ''){
+                            // Lấy ảnh sản phẩm hiện tại của sản phẩm
+                            $product_avatar = $info['product_avatar'];
+                        }
+            
+                        updateProduct($id_sp, $category, $product_name, $product_price, $product_desc, $product_quantity, $product_avatar);
+                        header("location: index.php?act=list-products");
+                        exit();
+                    }
+                }
+                
+                require_once '../admin/products/update.php';
+                break;
+            
         case 'list-carts':
             require_once '../admin/categories/list.php';
             break;
@@ -163,7 +176,13 @@ if(isset($_GET['act'])) {
             require_once '../admin/categories/list.php';
             break;
         case 'list-users':
+            $result = loadAllUser();
             require_once '../admin/user/list.php';
+            break;
+        case 'edit-user':
+            $id_user = $_GET['id_user'];
+            $User = loadUser($id_user);
+            require_once '../admin/user/edit.php';
             break;
         case 'delete-category':
             if(isset($_GET['id_dm'])){
