@@ -41,44 +41,47 @@
 </div>
 
 <script>
-    function validateForm() {
-        var name = document.getElementById("name").value;
-        var email = document.getElementById("email").value;
-        var password = document.getElementById("password").value;
-        var nameErr = emailErr = passwordErr = true;
+function validateForm() {
+    var name = document.getElementById("name").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var nameErr = emailErr = passwordErr = true;
 
-        // Validate tên
-        if (name == "") {
-            document.getElementById("nameErr").innerHTML = "Họ và tên không được để trống";
-        } else {
-            document.getElementById("nameErr").innerHTML = "";
-            nameErr = false;
-        }
-
-        // Validate email
-        if (email == "") {
-            document.getElementById("emailErr").innerHTML = "Email không được để trống";
-        } else {
-            var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!regex.test(email)) {
-                document.getElementById("emailErr").innerHTML = "Email không hợp lệ";
-            } else {
-                document.getElementById("emailErr").innerHTML = "";
-                emailErr = false;
-            }
-        }
-
-        // Validate mật khẩu
-        if (password == "") {
-            document.getElementById("passwordErr").innerHTML = "Mật khẩu không được để trống";
-        } else {
-            document.getElementById("passwordErr").innerHTML = "";
-            passwordErr = false;
-        }
-
-        // Trả về true nếu không có lỗi
-        return !(nameErr || emailErr || passwordErr);
+    // Validate tên
+    if (name == "") {
+        document.getElementById("nameErr").innerHTML = "Họ và tên không được để trống";
+    } else {
+        document.getElementById("nameErr").innerHTML = "";
+        nameErr = false;
     }
+
+    // Validate email
+    if (email == "") {
+        document.getElementById("emailErr").innerHTML = "Email không được để trống";
+    } else {
+        var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regex.test(email)) {
+            document.getElementById("emailErr").innerHTML = "Email không hợp lệ";
+        } else {
+            document.getElementById("emailErr").innerHTML = "";
+            emailErr = false;
+        }
+    }
+
+    // Validate mật khẩu
+    if (password == "") {
+        document.getElementById("passwordErr").innerHTML = "Mật khẩu không được để trống";
+    } else if (password.length < 8) {
+        document.getElementById("passwordErr").innerHTML = "Mật khẩu phải từ 8 kí tự trở lên";
+    } else {
+        document.getElementById("passwordErr").innerHTML = "";
+        passwordErr = false;
+    }
+
+    // Trả về true nếu không có lỗi
+    return !(nameErr || emailErr || passwordErr);
+}
+
 </script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 <div class="container">
 <table class="table table-bordered table-hover">
+    <h3 class="text-center m-3">Tất cả đơn hàng</h3>
                                         <tbody>
                                             <tr>
                                                 <th>Mã</th>

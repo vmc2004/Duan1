@@ -60,12 +60,15 @@
                         <input type="hidden" name="price_sp" value="<?=$ca['price_sp']?>">
                         <input type="hidden" name="total_price" value="<?=$total?>">
                         <input type="hidden" name="tong_soluong" value="<?=$total?>">
+                        
+                    
                         <!-- <img src="../img/<?=$ca['image_sp']?>" alt="" width="80px"> -->
                         <table class="tthd" cellpadding="5" cellspacing="5">
                                 <thead>
                                     <tr>
                                         <th>Tên sản phẩm</th>
                                         <th>Size</th>
+                                        
                                         <th class="text-center">Giá</th>
                                         <th>Thành tiền</th>
                                     </tr>
@@ -80,6 +83,7 @@
                             $total +=$total_price;
                             $_SESSION['tongbill'] = $total;
 							?>
+                            <input type="hidden" name="size" value="<?=$ca['size']?>">
                                             <tr>
                                                 <td>
                                                     <?= $ca['name_sp'] ?> <br>
@@ -87,7 +91,7 @@
                                                     <?= $ca['soluongcart'] ?>
                                                 </td>
                                                 <td>
-                                                    40
+                                                    <?=$ca['size']?>
                                                 </td>
                                                 <td>
                                                     <?= number_format((int)$ca['price_sp'], 0, ",", ".") ?>₫

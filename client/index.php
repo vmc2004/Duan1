@@ -59,31 +59,45 @@ if(isset($_GET['act'])) {
           require_once './view/users/profile.php';
           break;
         
-        case 'update-profile':
-          if(isset($_POST['btn-save'])){
-            $id_user = $_SESSION['user']['id_user'];
-            $name_user = $_POST['name_user'];
-            $email = $_POST['email'];
-            $gender = $_POST['gender'];
-            $sdt = $_POST['sdt'];
-            $diachi = $_POST['diachi'];
-            $avatar = basename($_FILES['avatar']['name']);
-
-            // Di chuyển tệp ảnh vào thư mục img
-            $target_dir = "../img/";
-            $target_file = $target_dir . $avatar;
-            move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
-            update_profile($id_user,$name_user,$gender,$avatar,$email,$sdt,$diachi);
-            // cập nhật session sau khi update user
-            $_SESSION['user']['name_user'] =$name_user ;
-             $_SESSION['user']['email'] =$email ;
-            $_SESSION['user']['gender'] = $gender ;
-            $_SESSION['user']['sdt'] = $sdt ;
-             $_SESSION['user']['diachi'] =$diachi ;
-            $_SESSION['user']['avatar'] = $avatar;
-            header("location: ?act=profile");
-          }
-          break;
+          case 'update-profile':
+            if(isset($_POST['btn-save'])){
+                $id_user = $_SESSION['user']['id_user'];
+                $name_user = $_POST['name_user'];
+                $email = $_POST['email'];
+                $gender = $_POST['gender'];
+                $sdt = $_POST['sdt'];
+                $diachi = $_POST['diachi'];
+                $avatar = '';
+        
+                // Kiểm tra xem người dùng đã chọn ảnh mới hay không
+                if(isset($_FILES['avatar']) && $_FILES['avatar']['size'] > 0){
+                    $avatar = basename($_FILES['avatar']['name']);
+                    // Di chuyển tệp ảnh vào thư mục img
+                    $target_dir = "../img/";
+                    $target_file = $target_dir . $avatar;
+                    move_uploaded_file($_FILES["avatar"]["tmp_name"], $target_file);
+                }
+        
+                // Kiểm tra xem người dùng đã chọn ảnh mới hoặc không
+                // Nếu người dùng không chọn ảnh mới thì giữ nguyên ảnh cũ
+                if($avatar == ''){
+                    // Lấy ảnh đại diện hiện tại của người dùng
+                    $avatar = $_SESSION['user']['avatar'];
+                }
+        
+                update_profile($id_user, $name_user, $gender, $avatar, $email, $sdt, $diachi);
+        
+                // Cập nhật session sau khi update user
+                $_SESSION['user']['name_user'] = $name_user;
+                $_SESSION['user']['email'] = $email;
+                $_SESSION['user']['gender'] = $gender;
+                $_SESSION['user']['sdt'] = $sdt;
+                $_SESSION['user']['diachi'] = $diachi;
+                $_SESSION['user']['avatar'] = $avatar;
+                header("location: ?act=profile");
+            }
+            break;
+        
       case 'register':
         require_once './view/users/register.php';
         if(isset($_POST['btn-register'])){
@@ -117,6 +131,10 @@ if(isset($_GET['act'])) {
      
         break;   
       case 'add-to-cart':
+       if(!isset($_SESSION['user'])){
+        header("location: ?act=login");
+       }
+      else{
         if(!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
         if(isset($_POST['addToCart'])){
           $id_sp = $_POST['id_sp'];
@@ -124,21 +142,24 @@ if(isset($_GET['act'])) {
           $soluongcart = $_POST['soluongcart'];
           $price_sp = $_POST['price_sp'];
           $image_sp = $_POST['image_sp'];
+          $size = $_POST['selectedSize'];
+          $tong_tien = $soluongcart * $price_sp;
           $cart =[
             'id_sp'=>$id_sp,
             'name_sp'=>$name_sp,
             'price_sp'=> $price_sp,
             'soluongcart'=>$soluongcart,
-            'image_sp'=>$image_sp
+            'image_sp'=>$image_sp,
+            'tongtien' => $tong_tien,
+            'size'=> $size
           ];
-
           $_SESSION['cart'][] = $cart;
           
         header("location: ?act=cart");
         exit();
         
        }
-      
+      }
         break;
         case 'delete-cart':
         
@@ -181,29 +202,42 @@ if(isset($_GET['act'])) {
             $name_user = $_POST['name_user']; 
             $diachi = $_POST['address_user'];
             $ngaytao = date('Y-m-d');
+            $size= $_POST['size'];
             $tongbill = $_SESSION['tongbill'] ;
             $trangthai = $_POST['trangthai'];
             $trangthaitt = $_POST['trangthaitt'];
             $pttt = $_POST['pttt'];
+            // $size = $_POST['size'];
+            if ($pttt == 1) {
+              $trangthai = 0;
+              $trangthaitt = 0;
+              $idBill = insert_hoadon($ngaytao, $pttt, $tongbill, $trangthai, $trangthaitt, $id_user);
+              
+              foreach ($_SESSION['cart'] as $carttt) {
+                
+                insert_billhoadon($idBill, $carttt['id_sp'], $carttt['name_sp'], $carttt['price_sp'],$carttt['size'], $carttt['soluongcart'], $tongtien = $carttt['tongtien'] );
+                 header('location: ?act=thank&id_bill='.$idBill);
+              }
+          }
             if ($pttt == 2) {
               header('Location: ?act=ttqrmomo');
               die();
               
           }
           if ($pttt == 3) {
-            $trangthai = 2;
+            $trangthai = 0;
             $trangthaitt = 1;
             $idBill = insert_hoadon($ngaytao, $pttt, $tongbill, $trangthai, $trangthaitt, $id_user);
             foreach ($_SESSION['cart'] as $carttt) {
-              insert_billhoadon($idBill, $carttt['id_sp'], $carttt['name_sp'], $carttt['price_sp'], $carttt['soluongcart'], $tongtien = $carttt['tongbill'] );
+              insert_billhoadon($idBill, $carttt['id_sp'], $carttt['name_sp'], $carttt['price_sp'],$carttt['size'], $carttt['soluongcart'], $tongtien = $carttt['tongtien'] );
           }
           include('view/thanhtoan/ttATMmomo.php');
                         break;
           }
+          
          
           $tbdh = "Đặt hàng thành công! Cảm ơn quý khách đã ủng hộ shop của chúng tôi!";
-                    unset($_SESSION['giohang']);
-                    unset($_SESSION['tongdh']);
+                    unset($_SESSION['cart']);
                     
                     break;
         
@@ -272,8 +306,23 @@ if(isset($_GET['act'])) {
           require_once 'view/users/chitiet_bill.php';
           break;
 
-      
-         
+        case 'xacnhandh':
+          if (isset($_GET['id_bill']) && $_GET['id_bill'] > 0) {
+              $id_bill = $_GET['id_bill'];
+              $trangthai = $_GET['trangthai'];
+              $trangthaitt = $_GET['trangthaitt'];
+              if ($trangthaitt == 1) {
+                  xacnhanttdh($id_bill, $trangthaitt);
+              }
+              xacnhandh($id_bill, $trangthai);
+              header('Location: ?act=view-bill&id_bill=' . $id_bill . '');
+          }
+          include('view/taikhoan/chitiethd.php');
+          break;
+
+         case 'thank':
+          require_once 'thank.php';
+          break;
   }
 
 }

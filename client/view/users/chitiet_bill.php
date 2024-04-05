@@ -40,7 +40,7 @@ if(!empty($_SESSION['user'])){
                     foreach ($listhd as $lhd) {
                         extract($lhd);
                         $idfhd = $id_bill;
-                        if ($id_user == $_SESSION['user']['id_user'] && $idfhd == $_GET['id_bill']) {
+                        if ($id_user == $_SESSION['user']['id_user'] && $id_bill == $_GET['id_bill']) {
                             $tthoadon = $tongbill;
                             $trangthaihd = $trangthai;
                             $trangthai_tt = $trangthaitt;
@@ -96,56 +96,39 @@ if(!empty($_SESSION['user'])){
                 </tbody>
             </table>
             <table class="tbcthd">
-                <thead>
-                    <tr>
-                        <th>Tên sản phẩm</th>
-                        <th>Size</th>
-                        <th>Giá (VND)</th>
-                        <th>Số lượng</th>
-                        <th>Tổng tiền (VND)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                      $listbhd = select_billhoadon($id_bill);
-                    foreach ($listbhd as $lbhd) {
-                        extract($lbhd);
-                        if ($_GET['id_bill'] == $id_bill) {
-                            $idfhd = $id_bill;
-                            $linksp = "index.php?act=sanphamct&id_sp=" . $id_sp;
-                            ?>
-                            <tr>
-                                <td>
-                                    <a href="<?= $linksp ?>">
-                                        <?= $name_sp ?>
-                                    </a>
-                                </td>
-                                <td>
-                                    <?= $sizespcart ?>
-                                </td>
-                                <td>
-                                    <?= number_format((int) $price_sp, 0, ",", ".") ?>
-                                </td>
-                                <td>
-                                    <?= $soluongcart ?>
-                                </td>
-                                <td>
-                                    <?= number_format((int) $tongtien, 0, ",", ".") ?>
-                                </td>
-                            </tr>
-                        <?php }
-                    }
-                    ?>
-                    <tr>
-                        <td colspan="4">
-                            <h6>Tổng tiền thanh toán (VND):</h6>
-                        </td>
-                        <td>
-                            <?= number_format((int) $tthoadon, 0, ",", ".") ?>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <thead>
+        <tr>
+            <th>Tên sản phẩm</th>
+            <th>Size</th>
+            <th>Giá (VND)</th>
+            <th>Số lượng</th>
+            <th>Tổng tiền (VND)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        // Lặp qua tất cả sản phẩm trong hóa đơn
+        foreach ($listbhd as $lbhd) {
+            extract($lbhd);
+        ?>
+            <tr>
+                <td>
+                    <a href="<?= $linksp ?>" style="text-decoration: none; " class="text-black"><?= $name_sp ?></a>
+                </td>
+                <td><?= $size_sp ?></td>
+                <td><?= number_format((int) $price_sp, 0, ",", ".") ?></td>
+                <td><?= $soluong_sp ?></td>
+                <td><?= number_format((int) $tong_tien, 0, ",", ".") ?></td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td colspan="4">
+                <h6>Tổng tiền thanh toán (VND):</h6>
+            </td>
+            <td><?= number_format((int) $tthoadon, 0, ",", ".") ?></td>
+        </tr>
+    </tbody>
+</table>
         </div>
 
         <div class="row">
@@ -155,7 +138,7 @@ if(!empty($_SESSION['user'])){
                     if ($trangthaihd == 3) {
                         echo '
                         <div class="coupon">
-                            <a href="index.php?act=xacnhandh&trangthai=4&trangthaitt=1&idhd=' . $idfhd . '" class="button">Đã nhận được
+                            <a href="index.php?act=xacnhandh&trangthai=4&trangthaitt=1&id_bill=' . $idfhd . '" class="button">Đã nhận được
                                 hàng</a>
                         </div>
                         ';
@@ -168,16 +151,16 @@ if(!empty($_SESSION['user'])){
                         } else if ($trangthaihd == 5) {
                             echo
                                 '<div class="coupon">
-                                    <a href="index.php?act=xacnhandh&trangthai=0&idhd=' . $idfhd . '" class="button">Đặt hàng lại</a>
+                                    <a href="index.php?act=xacnhandh&trangthai=0&id_bill=' . $idfhd . '" class="btn btn-success">Đặt hàng lại</a>
                                 </div>';
                         }
                     }
                     ?>
                     <?php
-                    if ($trangthaihd == 0 || $trangthaihd == 1 || $trangthaihd == 2 && $trangthai_tt != 1) {
+                    if ($trangthaihd == 0 || $trangthaihd == 1 || $trangthaihd == 2 && $trangthai_tt ==0) {
                         echo
                             '<div class="coupon2">
-                            <a href="index.php?act=xacnhandh&trangthai=5&idhd=' . $idfhd . '" class="button">Hủy đơn hàng</a>
+                            <a href="index.php?act=xacnhandh&trangthai=5&trangthaitt=0&id_bill=' . $idfhd . '" class="btn btn-danger">Hủy đơn hàng</a>
                         </div>';
                     }
                     ?>

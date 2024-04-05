@@ -18,6 +18,7 @@
                             <th scope="col">&nbsp;</th>
 							<th scope="col">Tên</th>
                             <th scope="col">Ảnh</th>
+                            <th scope="col">Size</th>
                             <th scope="col">Giá</th>
                             <th scope="col">Số lượng</th>
                             <th scope="col">Tổng cộng</th>
@@ -28,16 +29,17 @@
 						<?php
                         $total = 0 ;
                         $id_sp = 0;
+                        
                        if(isset($_SESSION['cart'])){
                         foreach($cart as $ca){
                             $total_price = $ca['price_sp'] *$ca['soluongcart'] ;
                             $id_sp  = $ca['id_sp'];
                             $total +=$total_price;  
+                            $Product = loadProductById($id_sp);
 							?>
                         <tr class="cart_item container  ">
                             <td>
                             <form method="POST" action="?act=delete-cart&id_sp=<?=$id_sp?>">
-                                    <!-- Thay đổi 'remove_from_cart.php' thành tên file xử lý của bạn -->
                                     <input type="hidden" name="cart_id" value="<?=$id_sp?>"> <!-- Đặt ID sản phẩm để xoá -->
                                     <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')"><i class="fa-solid fa-trash"></i></button>
                                 </form>
@@ -46,20 +48,19 @@
                             <td><?=$ca['name_sp']?></td>
 							<td><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail"
                                     src="../img/<?=$ca['image_sp']?>"></td>
+                                    <td><?=$ca['size']?></td>
+                                    
                          <td><span><?=number_format((int)$ca['price_sp'], 0, ",", ".")?>₫</span></td>
                             <td>
+                                
                                 <!-- Tăng giảm số lươngj  -->
                             
                                 <div class="input-group">
                             <div class="input-group-prepend">
-                            <button class="btn btn-outline-secondary btn-number" type="button" onclick="giam(this)">
-                                <i class="fa-solid fa-minus"></i>
-                                </button>
+                           
                             </div>
-                                <input type="text"  class="form-control input-number" value="<?=$ca['soluongcart']?>" min="1" style="width: 10px; height: 40px;">
-                                <div class="input-group-append">
-                                <button class="btn btn-outline-secondary btn-number" type="button" onclick="tang(this)">
-                                <i class="fa-solid fa-plus"></i>
+                            <input type="number" name="soluongcart" id="quantityInput" value="<?=$ca['soluongcart']?>" min="1" max="<?=$Product['soluong']?>" onchange="updateTotal(this)" >
+                               
                                 </button>
                                 </div>
                                 <input type="hidden" value="<?=$ca['id_sp']?>">
@@ -94,40 +95,31 @@
             </div>
         </form>
         <script>
-   function tang(x){
-      var paren = x.parentNode;
-      var  slcu = paren.previousSibling.previousSibling;
-      var slmoi = parseInt(slcu.value) + 1; 
-      slcu.value = slmoi;
-      var id_pro = paren.nextSibling.nextSibling;
-      $.post("?act=soluong",{
-        "id_sp": id_pro,
-        "soluong": slmoi
-      }, 
-      function(data, textStatus, jqXHR){
-            document.getElementById('cart').innerHTML = data ;
-      }
-      );
-    //   if (soluong<11){
-    //     slcu.value = slmoi;
-    // }
-    // else{
-    //     alert "Số lượng không thể lớn hơn ";
-    // }
- 
-   }
-   function giam(x){
-      var paren = x.parentNode;
-      var  slcu = paren.nextSibling.nextSibling;
-      var slmoi = parseInt(slcu.value) - 1; 
-      if(slmoi >=1){
-        slcu.value = slmoi;
-      }
-      else{
-        alert ("Số lượng không thể nhỏ hơn 1");
-      }
- 
-   }
-    
+   function updateTotal(input) {
+    var quantity = parseInt(input.value);
+    var pricePerItem = parseInt(input.parentNode.previousElementSibling.innerText.replace(/[^0-9]/g, '')); // Lấy giá từ cột Giá và loại bỏ ký tự không phải số
+    var total = quantity * pricePerItem;
+
+    // Tìm thẻ TD chứa tổng cộng và cập nhật giá trị
+    var totalTd = input.parentNode.nextElementSibling;
+    totalTd.innerText = formatCurrency(total);
+
+    // Tính toán tổng tiền toàn bộ giỏ hàng và cập nhật lại
+    var tableBody = document.querySelector('#cart tbody');
+    var totalSum = 0;
+    tableBody.querySelectorAll('tr').forEach(function(row) {
+        var totalPrice = parseInt(row.lastElementChild.innerText.replace(/[^0-9]/g, ''));
+        totalSum += totalPrice;
+    });
+
+    // Tìm thẻ TD chứa tổng tiền và cập nhật giá trị
+    var totalAmountTd = document.querySelector('#cart tbody tr:last-of-type td:last-of-type');
+    totalAmountTd.innerText = formatCurrency(totalSum);
+}
+
+function formatCurrency(value) {
+    return value.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+}
+
     
 </script>

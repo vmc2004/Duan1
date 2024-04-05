@@ -170,6 +170,7 @@ foreach($listProduct as $sp){ ?>
         <img id="image" src="../img/<?=$sp['image_sp']?>" alt="Product 1" style="min-height: 270px; max-width:300px;">
         <input type="hidden" name="image_sp" value="<?=$sp['image_sp']?>">
         <input type="hidden" name="soluongcart" value="1" >
+        <input type="hidden" name="selectedSize" value="0">
         <div class="overlay">
           <div class="content">
             <p><?=$sp['name_sp']?></p>

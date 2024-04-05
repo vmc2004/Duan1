@@ -54,7 +54,7 @@ if(isset($_SESSION['cart'])){
 echo $count;
 }
 else{
-  echo "0"; 
+  
 }
 
 ?>

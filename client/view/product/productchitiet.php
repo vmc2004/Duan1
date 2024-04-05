@@ -1,6 +1,21 @@
     <section class="container mt-4">
       <h2 class="text-center mt-4 mb-5">Chi tiết sản phẩm</h2>
-      
+      <style>
+    /* Ẩn các ô radio */
+/* Hiệu ứng khi hover và khi được chọn */
+.size-option {
+    cursor: pointer;
+}
+
+.size-option:hover {
+    background-color: lightgray;
+}
+
+.size-option.active {
+    background-color: lightblue;
+}
+
+</style>
 
        <div class="row">
             <div class="col-lg-6 d-flex justify-content-center p-1 border mb-1 pb-9" >
@@ -24,6 +39,9 @@ if($Product['matsan']==1){
 if($Product['matsan']==2){
   echo "Giày cỏ tự nhiên (Ag, Fg)";
 }
+if($Product['matsan']==3){
+  echo "Phụ kiện";
+}
 
 ?>
 
@@ -33,43 +51,32 @@ if($Product['matsan']==2){
                 <!-- Chọn màu -->
                 <div class="container">
                     <div class="row">
-                      <div class="col-md-4 ml-2">
-                        <p>Chọn size</p>
-                        <div class="form-group d-flex">
-                        <div>
-                      
-                          <label for="size 40"  class="border p-2 m-2 checkbox-label atvice">
-                            <span>40</span>
-                          </label>
-                        </div>
-                        <div>
-                      
-                          <label for="size 40"  class="border p-2 m-2 checkbox-label ">
-                            <span>41</span>
-                          </label>
-                        </div>
-                        <div class="">
-                          <label for="size 40" type="checkbox"   class="border p-2 m-2 checkbox-label ">
-                            <span>42</span>
-                          </label>
-                        </div>
-                          <br>
-                          <br>
-                        </div>
-                      </div>
-                     
+                    <div class="col-md-4 ml-2">
+                    <div class="col-md-4 ml-2">
+    <p>Chọn size</p>
+    <div class="form-group d-flex">
+        <div class="border p-1 me-2 size-option" data-value="40">40</div>
+        <div class="border p-1 me-2 size-option" data-value="41">41</div>
+        <div class="border p-1 me-2 size-option" data-value="42">42</div>
+        <div class="border p-1 me-2 size-option" data-value="43">43</div>
+        <div class="border p-1 me-2 size-option" data-value="44">44</div>
+    </div>
+    <input type="hidden" id="selectedSize" name="selectedSize">
+</div>
+
                     </div>
                   </div> <br>
                   <p>Số lượng</p>
-                  <div>
-        <a class="btn border" onclick="decreaseQuantity()">-</a>
+                  <div >
+        
         <input type="number" name="soluongcart" id="quantityInput" value="1" min="1" max="<?=$Product['soluong']?>" style="width: 50px; height: 30px;">
-        <a class="btn border" onclick="increaseQuantity()">+</a>
+       
+         <?=$Product['soluong']?> sản phẩm có sẵn
     </div>
     <br>
                 <button class="btn btn-success" type="submit" name="addToCart">Thêm vào giỏ hàng</button>
                 <button class="btn btn-danger">Mua ngay</button>
-                <p class="mt-5 ">Số lượng : <?=$Product['soluong']?></p>
+                
         </div>
             </div>
            
@@ -182,19 +189,8 @@ if(isset($_SESSION['user'])){
   </div>
   <?php } ?>
     </section>
-<script>function increaseQuantity() {
-    var input = document.getElementById("quantityInput");
-    var currentValue = parseInt(input.value);
-    input.value = currentValue + 1;
-}
+<script>
 
-function decreaseQuantity() {
-    var input = document.getElementById("quantityInput");
-    var currentValue = parseInt(input.value);
-    if (currentValue > 1) {
-        input.value = currentValue - 1;
-    }
-}
 
 function expandDescription() {
     var description = document.getElementById("detailDescription");
@@ -208,4 +204,26 @@ function expandDescription() {
         toggleLink.textContent = "Xem thêm";
     }
 }
+// Lấy danh sách tất cả các size-option
+const sizeOptions = document.querySelectorAll('.size-option');
+
+// Duyệt qua từng size-option và thêm sự kiện click
+sizeOptions.forEach(sizeOption => {
+    sizeOption.addEventListener('click', function() {
+        // Lấy giá trị của size từ data-value
+        const size = this.dataset.value;
+        
+        // Đặt giá trị cho input ẩn
+        document.getElementById('selectedSize').value = size;
+        
+        // Xóa lớp active từ tất cả size-option
+        sizeOptions.forEach(option => {
+            option.classList.remove('active');
+        });
+        
+        // Thêm lớp active cho size-option được chọn
+        this.classList.add('active');
+    });
+});
+
 </script>

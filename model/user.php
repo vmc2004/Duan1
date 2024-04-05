@@ -32,4 +32,14 @@ function updateImage($newImage, $oldImagePath)
         return $oldImagePath;
     }
 }
+function loadAllUser(){
+    $sql="SELECT * FROM `user` ";
+    $result = pdo_query($sql);
+    return $result;
+}
+function loadUser($id_user){
+    $sql= "SELECT * FROM `user` WHERE id_user = $id_user";
+    $result = pdo_query($sql);
+    return $result;
+}
 ?>
