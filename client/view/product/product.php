@@ -89,15 +89,12 @@ foreach($Product as $sp){ ?>
               </section>
               <div class="container mt-2 d-flex justify-content-center pagination" id="pagination">
                 
+          
+               <?php
+                  echo $hien_thi_so_trang;
+               ?>
               
-               
-                  <a class="page-link text-black" href="#">Previous</a>
-                  <a class="page-link text-black" href="?act=page1">1</a>
-                  <a class="page-link text-black" href="index.php?act=list-products&page=2">2</a>
-                  <a class="page-link text-black" href="index.php?act=list-products&page=3">3</a>
-                  <a class="page-link text-black" href="#">Next</a>
-                
-              </div>
+            </div>
             </div>
           </div>
         </div>

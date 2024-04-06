@@ -10,7 +10,10 @@ function delete_pro($id_sp){
     pdo_query_one($sql);
 }
 function LoadProById($id_sp){
-    $sql="SELECT * FROM `sanpham` WHERE id_sp = $id_sp";
+    $sql="SELECT sp.id_sp, sp.name_sp, sp.price_sp, sp.image_sp, sp.desc_sp, sp.soluong, sp.luotban, sp.matsan, dm.name_dm, dm.id_dm FROM `sanpham` as sp
+    INNER JOIN `danhmuc` as dm
+    ON sp.id_dm = dm.id_dm
+    WHERE id_sp = $id_sp";
     $info = pdo_query_one($sql);
     return $info;
 }
@@ -58,6 +61,15 @@ function hien_thi_so_trang($total,$soSp){
     }
     return $html;
 }
+function hien_thi_so_trang_view($matsan,$total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=loai&matsan='.$matsan.'&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
 function search_admin($content,$page,$soSp){
     if (empty($page) || $page == 0) {
         $page = 1;
@@ -72,6 +84,40 @@ function search_admin($content,$page,$soSp){
     $result = pdo_query($sql);
     return $result;
 }
+function hien_thi_so_trang_all($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=all-products&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
+function loadSearch($id_dm,$page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
 
+    $batdau = ($page - 1) * $soSp;
+    // Sửa lại cách nối chuỗi trong truy vấn
+    $sql = "SELECT *  FROM `sanpham` 
+    WHERE id_dm = $id_dm
+    LIMIT ".$batdau.",".$soSp;
+    $list = pdo_query($sql);
+    return $list;
+}
+function hien_thi_so_trang_id_dm($id_dm,$total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=search-by-id&id_dm='.$id_dm.'&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
+function updateProductQuantity($id_sp, $new_quantity){
+$sql = "UPDATE `sanpham` SET soluong = $new_quantity WHERE id_sp=$id_sp";
+pdo_execute($sql);
+}
 
 ?>

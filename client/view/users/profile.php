@@ -35,7 +35,7 @@
                                 <h2 class="info-heading">Avatar</h2>
                                 <input name="avatar" type="file" />
                                 <img src="<?php echo $_SESSION['user']['avatar']; ?>" alt="avatar user" />
-                                <span>Nên là ảnh vuông, chấp nhận các tệp: JPG, PNG hoặc GIF.</span>
+                                <span class="text-danger">Nên là ảnh vuông, chấp nhận các tệp: JPG, PNG hoặc GIF.</span>
                             </div>
 
                             <div class="info-item">
@@ -71,3 +71,16 @@
         </div>
     </div>
 </main>
+<script>
+        function validateImage() {
+        var fileInput = document.querySelector('input[type="file"]');
+        var filePath = fileInput.value;
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!allowedExtensions.exec(filePath)) {
+            alert('Vui lòng chọn file ảnh có định dạng JPG hoặc PNG.');
+            fileInput.value = '';
+            return false;
+        }
+        return true;
+    }
+</script>

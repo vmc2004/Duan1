@@ -63,54 +63,56 @@
             <button type="reset" class="btn btn-warning text-white w-25 mt-4">Reset</button>
         </div>
     </form>
-
     <script>
-        function validateForm() {
-            var name = document.getElementById("product_name").value;
-            var price = document.getElementById("product_price").value;
-            var desc = document.getElementById("product_desc").value;
-            var avatar = document.getElementById("product_avatar").value;
-            var quantity = document.getElementById("product_quantity").value;
+    function validateForm() {
+        var name = document.getElementById("product_name").value;
+        var price = document.getElementById("product_price").value;
+        var desc = document.getElementById("product_desc").value;
+        var avatar = document.getElementById("product_avatar").value;
+        var quantity = document.getElementById("product_quantity").value;
 
-            var nameError = document.getElementById("nameError");
-            var priceError = document.getElementById("priceError");
-            var descError = document.getElementById("descError");
-            var avatarError = document.getElementById("avatarError");
-            var quantityError = document.getElementById("quantityError");
+        var nameError = document.getElementById("nameError");
+        var priceError = document.getElementById("priceError");
+        var descError = document.getElementById("descError");
+        var avatarError = document.getElementById("avatarError");
+        var quantityError = document.getElementById("quantityError");
 
-            nameError.textContent = "";
-            priceError.textContent = "";
-            descError.textContent = "";
-            avatarError.textContent = "";
-            quantityError.textContent = "";
+        nameError.textContent = "";
+        priceError.textContent = "";
+        descError.textContent = "";
+        avatarError.textContent = "";
+        quantityError.textContent = "";
 
-            if (name === "") {
-                nameError.textContent = "Tên sản phẩm không được để trống";
-                return false;
-            }
-
-            if (price === "") {
-                priceError.textContent = "Giá sản phẩm không được để trống";
-                return false;
-            }
-
-            if (desc === "") {
-                descError.textContent = "Mô tả sản phẩm không được để trống";
-                return false;
-            }
-
-            if (avatar === "") {
-                avatarError.textContent = "Ảnh sản phẩm không được để trống";
-                return false;
-            }
-
-            if (quantity === "") {
-                quantityError.textContent = "Số lượng sản phẩm không được để trống";
-                return false;
-            }
-
-            return true;
+        if (name === "") {
+            nameError.textContent = "Tên sản phẩm không được để trống";
+            return false;
         }
-    </script>
+
+        if (price === "") {
+            priceError.textContent = "Giá sản phẩm không được để trống";
+            return false;
+        }
+
+        if (desc === "") {
+            descError.textContent = "Mô tả sản phẩm không được để trống";
+            return false;
+        }
+
+        // Kiểm tra định dạng ảnh
+        var allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i;
+        if (!allowedExtensions.exec(avatar)) {
+            avatarError.textContent = "Vui lòng chọn file ảnh có định dạng JPG hoặc PNG";
+            return false;
+        }
+
+        if (quantity === "") {
+            quantityError.textContent = "Số lượng sản phẩm không được để trống";
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
 </body>
 </html>

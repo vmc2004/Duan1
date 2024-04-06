@@ -12,9 +12,61 @@ if(isset($_GET['act'])) {
   $act = $_GET['act'];
   switch ($act) {
     case 'all-product':
-      $Product = loadAllProduct();
+      if(!isset($_GET['page'])){
+        $page = 1;
+    }
+    else{
+        $page = $_GET['page'];
+    }
+    $soSp = 9;
+    $Product = loadAllProduct_admin($page,$soSp);
+    $total = load();
+    $hien_thi_so_trang = hien_thi_so_trang_all($total,$soSp);
      
       require_once './view/product/product.php';
+      break;
+    case 'loai':
+      if($_GET['matsan']){
+        $matsan = $_GET['matsan'];
+      
+      if(!isset($_GET['page'])){
+        $page = 1;
+    }
+    else{
+        $page = $_GET['page'];
+    }
+    $soSp = 9;
+    $Product = loadPro_by_matsan($matsan,$page,$soSp);
+    $total = loaigiay($matsan);
+    $hien_thi_so_trang =  hien_thi_so_trang_view($matsan,$total,$soSp);
+  }
+      
+      require_once './view/product/product.php';
+      break;
+    case 'search':
+      if(isset($_POST['search'])){
+        $content = $_POST['content'];
+        $Product = search($content);
+        require_once './view/product/product.php';
+      }
+      break;
+    case 'search-by-id':
+      if(isset($_GET['id_dm'])){
+        $id_dm = $_GET['id_dm'];
+        if(!isset($_GET['page'])){
+          $page = 1;
+      }
+      else{
+          $page = $_GET['page'];
+      }
+      $soSp = 6;
+      $Product = loadSearch($id_dm,$page,$soSp);
+      $total = searchnbyid_dm($id_dm);
+      $hien_thi_so_trang = hien_thi_so_trang_id_dm($id_dm,$total,$soSp);
+      }
+        
+        require_once './view/product/product.php';
+      
       break;
       case '/':
         require_once './home.php';
@@ -252,37 +304,6 @@ if(isset($_GET['act'])) {
           break;
         case 'ttqrmomo':
           include('view/thanhtoan/xulyttmomo.php');
-          break;
-        case 'search':
-          if(isset($_POST['search'])){
-            $content = $_POST['content'];
-            $Product = search($content);
-            require_once './view/product/product.php';
-          }
-          break;
-        case 'search-by-id':
-          if(isset($_GET['id_dm'])){
-            $id_dm = $_GET['id_dm'];
-            $Product = searchnbyid_dm($id_dm);
-          }
-            
-            require_once './view/product/product.php';
-          
-          break;
-        case 'giay-nhantao':
-          $Product =loaigiay();
-          
-          require_once './view/product/product.php';
-          break;
-        case 'giay-tunhien':
-          $Product =tunhien();
-          
-          require_once './view/product/product.php';
-          break;
-        case 'phukien':
-          $Product =phukien();
-          
-          require_once './view/product/product.php';
           break;
         case 'comment':
           if(isset($_POST['comment'])){

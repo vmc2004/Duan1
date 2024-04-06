@@ -122,13 +122,13 @@ else{
                   <a class="nav-link fw-bold" href="index.php?act=all-product">Tất cả sản phẩm</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=giay-tunhien">Giày cỏ tự nhiên</a>
+                  <a class="nav-link fw-bold" href="index.php?act=loai&matsan=2">Giày cỏ tự nhiên</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=giay-nhantao">Giày cỏ nhân tạo</a>
+                  <a class="nav-link fw-bold" href="index.php?act=loai&matsan=1">Giày cỏ nhân tạo</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=phukien">Phụ kiện</a>
+                  <a class="nav-link fw-bold" href="index.php?act=loai&matsan=3">Phụ kiện</a>
                 </li>
                 <li class="nav-item dropdown ">
                   <a class="nav-link dropdown-toggle fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

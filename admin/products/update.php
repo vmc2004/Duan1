@@ -4,17 +4,24 @@
      <div class="form-group">
           <label>Nhà sản xuất</label>
           <select name="category" id="">
+               
+            <option value="<?=$info['id_dm']?>" selected ><?=$info['name_dm']?></option>
+           
           <?php
           
           require_once '../model/category.php';
           // $id_dm = $_GET['id_dm'];
           // $name_dm =  nameById($id_dm);
           $listCat = loadAll();
-          foreach($listCat as $cat) {?>
-           
+          foreach($listCat as $cat) {
+               if($cat['id_dm'] == $info['id_dm']){
+                    continue;
+               }
+               
+               ?> 
             <option value="<?=$cat['id_dm']?>" ><?=$cat['name_dm']?></option>
          
-          <?php } ?>
+          <?php }  ?>
           </select>
      </div> <br>
 
