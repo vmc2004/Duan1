@@ -27,41 +27,44 @@
                     $id_sp = 0;
                     if (isset($_SESSION['cart'])) {
                         foreach ($cart as $ca) {
+                            $total = $ca['price_sp'] * $soluongcart;
+                            $totalPrice += $total;
                             $id_sp = $ca['id_sp'];
                             $Product = loadProductById($id_sp);
                     ?>
-                            <tr class="cart_item container">
+                            <tr class="cart_item container  ">
                                 <td>
                                     <form method="POST" action="?act=delete-cart&id_sp=<?= $id_sp ?>">
                                         <input type="hidden" name="cart_id" value="<?= $id_sp ?>">
-                                        <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </button>
+                                        <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')"><i class="fa-solid fa-trash"></i></button>
                                     </form>
                                 </td>
                                 <td><a title="Remove this item" class="remove" href="#"></a></td>
                                 <td><?= $ca['name_sp'] ?></td>
-                                <td>
-                                    <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../img/<?= $ca['image_sp'] ?>">
-                                </td>
+                                <td><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../img/<?= $ca['image_sp'] ?>"></td>
                                 <td><?= $ca['size'] ?></td>
                                 <td>
                                     <span><?= number_format((int)$ca['price_sp'], 0, ",", ".") ?>₫</span>
                                     <input type="hidden" class="iprice" value="<?= $ca['price_sp'] ?>">
                                 </td>
                                 <td>
-                                    <input type="number" value="<?= $ca['soluongcart'] ?>" min="1" max="<?= $Product['soluong'] ?>" id="quantity_<?= $ca['id_sp'] ?>" oninput="updateQuantity(<?= $ca['id_sp'] ?>, this.value)" class="inp-sl" onclick="reloadPage()">
+                                    <!-- Tăng giảm số lượng -->
+                                    <div class="input-group input-spinner">
+                                        <input type="button" value="-" class="button-minus btn btn-sm border" data-field="quantity" onclick="updateQuantity(<?= $ca['id_sp'] ?>, '-')">
+                                        <input type="number" class="quantity-field form-control-sm form-input" style="cursor: default" readonly min="1" step="1" max="<?= $Product['soluong'] ?>" value="<?= $soluongcart?>" name="quantity" id="quantity_<?= $Product['id_sp'] ?>">
+                                        <input type="button" value="+" class="button-plus btn btn-sm border" data-field="quantity" onclick="updateQuantity(<?= $ca['id_sp'] ?>, '+')">
+                                    </div>
+                                    <!-- kết thúc tăng giảm -->
                                 </td>
-                                <td class="itotal"><?= number_format(($ca['price_sp'] * $ca['soluongcart']), 0, '.', '.') ?> ₫</td>
+                                <td class="itotal"><?= number_format($total, 0, '.', '.') ?> ₫</td>
                             </tr>
                     <?php
-                            $total += (intval($ca['price_sp']) * intval($ca['soluongcart']));
+                           
                         }
-                    }
-                    ?>
+                    } ?>
                     <tr>
                         <td colspan="6" align="right"><strong>Tổng tiền:</strong></td>
-                        <td align="right"><?= number_format($total, 0, '.', '.') ?> ₫</td>
+                        <td align="right"> <?= number_format($totalPrice, 0, '.', '.') ?> ₫ </td>
                     </tr>
                     <tr>
                         <td colspan="6">
@@ -79,39 +82,3 @@
         </div>
     </form>
 </div>
-<script>
-   
-   // Hàm cập nhật số lượng sản phẩm bằng AJAX
-function updateQuantity(id_sp, newQuantity) {
-    $.ajax({
-        type: 'POST',
-        url: 'xulysoluong.php',
-        data: {
-            id_sp: id_sp,
-            soluongcart: newQuantity
-        },
-        success: function(response) {
-            // Sau khi cập nhật thành công, cập nhật số lượng sản phẩm trên giao diện
-            $('#quantity_' + id_sp).val(newQuantity);
-            // Cập nhật tổng cộng của sản phẩm
-            var totalPrice = parseInt($('#quantity_' + id_sp).closest('tr').find('.iprice').val()) * newQuantity;
-            $('#quantity_' + id_sp).closest('tr').find('.itotal').text(totalPrice.toLocaleString('vi-VN') + ' ₫');
-            // Cập nhật tổng tiền
-            updateTotalPrice();
-        }
-    });
-}
-
-// Hàm cập nhật tổng tiền
-function updateTotalPrice() {
-    var total = 0;
-    $('.itotal').each(function() {
-        total += parseInt($(this).text().replace(' ₫', '').replace(/\./g, ''));
-    });
-    $('#totalPrice').text(total.toLocaleString('vi-VN') + ' ₫');
-}
-function reloadPage() {
-        location.reload();
-    }
-
-</script>

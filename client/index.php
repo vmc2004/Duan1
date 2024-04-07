@@ -92,6 +92,13 @@ if(isset($_GET['act'])) {
                       }, 0); 
                   </script>
                 ';
+              }else{
+                echo '
+                  <script>
+                  alert("Tài khoản hoặc mật khẩu sai !");
+                     
+                  </script>
+                ';
               }
           }
           break;
@@ -237,6 +244,39 @@ if(isset($_GET['act'])) {
           }
           break;
         
+        case 'buy-now':
+          if(!isset($_SESSION['user'])){
+            header("location: ?act=login");
+           }
+          else{
+            if(!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
+            
+            if(isset($_POST['buy-now'])){
+              $id_sp = $_POST['id_sp'];
+              $name_sp = $_POST['name_sp'];
+              $soluongcart = $_POST['soluongcart'];
+              $price_sp = $_POST['price_sp'];
+              $image_sp = $_POST['image_sp'];
+              $size = $_POST['selectedSize'];
+              $tong_tien = $soluongcart * $price_sp;
+              $cart =[
+                'id_sp'=>$id_sp,
+                'name_sp'=>$name_sp,
+                'price_sp'=> $price_sp,
+                'soluongcart'=>$soluongcart,
+                'image_sp'=>$image_sp,
+                'tongtien' => $tong_tien,
+                'size'=> $size
+              ];
+              $_SESSION['cart'][] = $cart;
+              var_dump($_SESSION['cart']);
+           
+            
+           }
+           header("location: ?act=check-out");
+           exit();
+          }
+            break;
         case 'check-out':
           if(!empty($_SESSION['cart'])){
             $cart = $_SESSION['cart'];
@@ -309,9 +349,12 @@ if(isset($_GET['act'])) {
           if(isset($_POST['comment'])){
             $cmt = $_POST['cmt'];
             $id_sp = $_POST['id_sp'];
+            $id_dm = $_GET['id_dm'];
             $id_user = $_POST['id_user'];
             $time = date("Y-m-d h:i:sa");
             addCmt($cmt,$id_sp,$id_user,$time);
+            header("location: ?act=viewProduct&id_sp=$id_sp&id_dm=$id_dm");
+            exit();
             
           }
           break;

@@ -74,8 +74,8 @@ if($Product['matsan']==3){
          <?=$Product['soluong']?> sản phẩm có sẵn
     </div>
     <br>
-                <button class="btn btn-success" type="submit" name="addToCart">Thêm vào giỏ hàng</button>
-                <button class="btn btn-danger">Mua ngay</button>
+    <button class="btn btn-success" type="submit" name="addToCart" onclick="setAction('add-to-cart')">Thêm vào giỏ hàng</button>
+    <a class="btn btn-danger" name="buyNow" href="?act=buy-now" onclick="setAction('buy-now')">Mua ngay</a>
                 
         </div>
             </div>
@@ -114,8 +114,8 @@ if($Product['matsan']==3){
           <div class="content">
             <p><?=$sp['name_sp']?></p>
             <p class="text-danger"> <?=$sp['price_sp']?>₫ </p>
-            <button class="add-to-cart btn-success text-light rounded shadow " style="height: 33px;">Add To Cart</button>
-            <a href="index.php?act=viewProduct&id_sp=<?=$sp['id_sp']?>&id_dm=<?=$sp['id_dm']?>"><button class="view-details bg-dark text-light rounded p-1 " style="height: 33px;">View Details</button></a>
+            <button class="btn btn-success" type="submit" name="addToCart" onclick="setAction('add-to-cart')">Thêm vào giỏ hàng</button>
+    <a class="btn btn-danger" name="buyNow" href="?act=buy-now" onclick="setAction('buy-now')">Mua ngay</a>
           </div>
         </div>
       
@@ -174,9 +174,12 @@ if($Product['matsan']==3){
  </div>
 <?php
 if(isset($_SESSION['user'])){
+  $id_sp = $_GET['id_sp'];
+  $id_dm = $_GET['id_dm'];
+  
 ?>
 
-      <form method="POST" action="?act=comment">
+      <form method="POST" action="?act=comment&id_sp=<?=$id_sp?>&id_dm=<?=$id_dm?>">
         <div class="form-group">
           <label for="comment">Nhận xét:</label>
           <input type="hidden" name="id_sp" value="<?=$_GET['id_sp']?>">
@@ -225,5 +228,7 @@ sizeOptions.forEach(sizeOption => {
         this.classList.add('active');
     });
 });
-
+function setAction(action) {
+    document.getElementById('formAction').value = action;
+}
 </script>

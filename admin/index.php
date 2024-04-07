@@ -6,6 +6,8 @@ require_once '../model/pdo.php';
 require_once '../model/category.php';
 require_once '../model/product.php';
 require_once '../model/user.php';
+require_once '../model/list.php';
+require_once '../model/bill.php';
 
 
 if(isset($_GET['act'])) {
@@ -55,23 +57,35 @@ if(isset($_GET['act'])) {
             $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
             require_once '../admin/products/list.php';
             break;
-        case 'search':
-            
-            if(isset($_POST['search'])){
-                if(!isset($_GET['page'])){
-                    $page = 1;
+            case 'search':
+                if(isset($_POST['search'])){
+                    // Lấy nội dung tìm kiếm từ form
+                    $content = $_POST['content'];
+                    
+                    // Kiểm tra nếu trang không được chỉ định, mặc định là trang 1
+                    if(!isset($_GET['page'])){
+                        $page = 1;
+                    } else {
+                        $page = $_GET['page'];
+                    }
+                    
+                    // Số sản phẩm hiển thị trên mỗi trang
+                    $soSp = 5;
+                    
+                    // Gọi hàm tìm kiếm sản phẩm với nội dung và trang
+                    $list = search_admin($content, $page, $soSp);
+                    
+                    // Gọi hàm tìm kiếm tổng số sản phẩm
+                    $total = search($content);
+                    
+                    // Hiển thị số trang
+                    $hien_thi_so_trang = hien_thi_so_trang($total, $soSp);
+                    
+                    // Yêu cầu file danh sách sản phẩm
+                    require_once '../admin/products/list.php';
                 }
-                else{
-                    $page = $_GET['page'];
-                }
-                $soSp = 5;
-                $list = search_admin($content,$page,$soSp);
-                $content = $_POST['content'];
-                $total = search($content);
-                $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
-                require_once '../admin/products/list.php';
-                }
-                break;            
+                break;
+                     
         case 'add-product':
             require_once '../admin/products/add.php';
             if(isset($_POST['submit'])){
@@ -167,13 +181,37 @@ if(isset($_GET['act'])) {
                 break;
             
         case 'list-carts':
-            require_once '../admin/categories/list.php';
+            $bill = loadBill();
+            require_once '../admin/order/list.php';
+            break;
+        case 'view-bill-admin':
+            $listhd = select_hoadon(null, null);
+            if (isset($_POST['updatevaitro']) && ($_POST['updatevaitro'])) {
+                $id_bill = $_POST['id_bill'];
+                $trangthain = $_POST['trangthain'];
+                capnhat_tthd($trangthain, $id_bill);
+                $listhd = select_hoadon(null, null);
+                if($trangthain == 4){
+                    $id_sp = $listhd['id_sp'];
+                    $sp = loadabc($id_sp);
+                    
+                    $soluongNew =  $sp['soluong'] - $listhd['soluong_sp']  ;
+                    change_soluong_sp($soluongNew,$id_sp);
+                }
+                header('Location: ?act=list-carts');
+                die();
+            }
+          
+            
+
+            require_once '../admin/order/chitiet.php';
             break;
         case 'list-posts':
             require_once '../admin/categories/list.php';
             break;
-        case 'list-comments':
-            require_once '../admin/categories/list.php';
+        case 'comments':
+            $comment = loadCmt();
+            require_once '../admin/comment/list.php';
             break;
         case 'list-users':
             $result = loadAllUser();

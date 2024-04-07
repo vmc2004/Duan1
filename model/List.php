@@ -51,4 +51,15 @@ function loadPro_by_matsan($matsan,$page, $soSp) {
     return $list;
 }
 
+function loadCmt(){
+    $sql="SELECT * FROM `binhluan`
+    INNER JOIN `user`
+    ON binhluan.id_user  = user.id_user
+    INNER JOIN `sanpham`
+    ON binhluan.id_sp  = sanpham.id_sp
+    ";
+    $result = pdo_query($sql);
+    return $result;
+}
+
 ?>

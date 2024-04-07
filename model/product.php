@@ -36,6 +36,11 @@ function load(){
     $list = pdo_query($sql);
     return $list;
 }
+function loadabc($id_sp){
+    $sql = "SELECT * FROM `sanpham` WHERE `id_sp`= $id_sp";
+    $list = pdo_query($sql);
+    return $list;
+}
 function loadAllProduct_admin($page, $soSp) {
     if (empty($page) || $page == 0) {
         $page = 1;
@@ -76,7 +81,7 @@ function search_admin($content,$page,$soSp){
     }
 
     $batdau = ($page - 1) * $soSp;
-    $sql= "SELECT sp.id_sp, sp.name_sp, sp.price_sp, sp.id_dm, sp.thongso, sp.desc_sp, sp.soluong, sp.image_sp, sp.luotban, sp.matsan, dm.name_dm  FROM `sanpham` as sp
+    $sql= "SELECT * FROM `sanpham` as sp
     INNER JOIN `danhmuc` as dm 
     ON sp.id_dm = dm.id_dm
     WHERE name_sp
@@ -119,5 +124,11 @@ function updateProductQuantity($id_sp, $new_quantity){
 $sql = "UPDATE `sanpham` SET soluong = $new_quantity WHERE id_sp=$id_sp";
 pdo_execute($sql);
 }
+function change_soluong_sp($soluongNew,$id_sp){
+    $sql = "UPDATE `sanpham` SET `soluong` = $soluongNew WHERE `id_sp`=$id_sp";
+    pdo_execute($sql);
+}
+
+
 
 ?>

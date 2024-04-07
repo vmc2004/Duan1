@@ -24,8 +24,8 @@ if(!empty($_SESSION['user'])){
             <div class="titleh3 m-4">
                 <h3 class="text-center">Chi tiết hóa đơn</h3>
             </div>
-            <table class="tbcthd">
-                <thead>
+            <table class="tbcthd table border">
+                <thead class="table-dark">
                     <tr>
                         <th>Mã hóa đơn</th>
                         <th>Ngày đặt hàng</th>
@@ -95,13 +95,13 @@ if(!empty($_SESSION['user'])){
                     ?>
                 </tbody>
             </table>
-            <table class="tbcthd">
-    <thead>
+            <table class="tbcthd table border">
+    <thead class="table-dark">
         <tr>
             <th>Tên sản phẩm</th>
             <th>Size</th>
             <th>Giá (VND)</th>
-            <th>Số lượng</th>
+            <th class="text-center">Số lượng</th>
             <th>Tổng tiền (VND)</th>
         </tr>
     </thead>
@@ -116,16 +116,16 @@ if(!empty($_SESSION['user'])){
                     <a href="<?= $linksp ?>" style="text-decoration: none; " class="text-black"><?= $name_sp ?></a>
                 </td>
                 <td><?= $size_sp ?></td>
-                <td><?= number_format((int) $price_sp, 0, ",", ".") ?></td>
-                <td><?= $soluong_sp ?></td>
-                <td><?= number_format((int) $tong_tien, 0, ",", ".") ?></td>
+                <td><?= number_format((int) $price_sp, 0, ",", ".") ?>₫</td>
+                <td class="text-center"><?= $soluong_sp ?></td>
+                <td><?= number_format((int) $tong_tien, 0, ",", ".") ?>₫</td>
             </tr>
         <?php } ?>
         <tr>
             <td colspan="4">
                 <h6>Tổng tiền thanh toán (VND):</h6>
             </td>
-            <td><?= number_format((int) $tthoadon, 0, ",", ".") ?></td>
+            <td class="text-danger"><?= number_format((int) $tthoadon, 0, ",", ".") ?>₫</td>
         </tr>
     </tbody>
 </table>

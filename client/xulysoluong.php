@@ -1,19 +1,30 @@
 <?php
-// Lưu trữ giá trị của itotal và gtotal vào các biến PHP
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $itotalValues = $_POST['itotalValues'];
-    $gtotalValue = $_POST['gtotalValue'];
+session_start();
 
-    // Bạn có thể thực hiện các thao tác xử lý dữ liệu ở đây
-    // Ví dụ: Lưu vào session, cập nhật vào cơ sở dữ liệu, ...
+// Kiểm tra xem có tồn tại mảng giỏ hàng hay không.
+if (!isset($_SESSION['cart'])) {
+    // Nếu không có thì đi khởi tạo
+    $_SESSION['cart'] = [];
+}
 
-    // Ví dụ: Lưu giá trị gtotal vào session
-    session_start();
-    $_SESSION['gtotal'] = $gtotalValue;
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lấy dữ liệu từ request POST
+    $id_sp = $_POST['id_sp'];
+    $soluongcart = $_POST['soluongcart'];
 
-    // Gửi phản hồi về cho Ajax
-    echo "Dữ liệu đã được nhận và xử lý thành công.";
+    // Tìm kiếm sản phẩm trong giỏ hàng
+    $index = array_search($id_sp, array_column($_SESSION['cart'], 'id_sp'));
+
+    // Nếu sản phẩm tồn tại trong giỏ hàng, cập nhật số lượng
+    if ($index !== false) {
+        $_SESSION['cart'][$index]['soluongcart'] = $soluongcart;
+    }
+
+    // Trả về số lượng sản phẩm đã được cập nhật trong giỏ hàng
+    header('Location: tablecart.php?soluong=' . $newQuantity);
+    exit();
 } else {
-    echo "Phương thức không hợp lệ.";
+    // Trường hợp không phải là request POST, trả về thông báo lỗi
+    echo 'Yêu cầu không hợp lệ';
 }
 ?>
