@@ -47,19 +47,6 @@ if(isset($_GET['act'])) {
         case 'thong-ke':
             require_once 'thongke/list.php';
             break;
-        case 'list-products':
-            if(!isset($_GET['page'])){
-                $page = 1;
-            }
-            else{
-                $page = $_GET['page'];
-            }
-            $soSp = 5;
-            $list = loadAllProduct_admin($page,$soSp);
-            $total = load();
-            $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
-            require_once '../admin/products/list.php';
-            break;
             case 'search':
                 if(isset($_POST['search'])){
                     // Lấy nội dung tìm kiếm từ form
@@ -182,9 +169,33 @@ if(isset($_GET['act'])) {
                 
                 require_once '../admin/products/update.php';
                 break;
-            
+        case 'list-products':
+            if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            $soSp = 5;
+            $list = loadAllProduct_admin($page,$soSp);
+            $total = load();
+            $hien_thi_so_trang =   hien_thi_so_trang($total,$soSp);
+            require_once '../admin/products/list.php';
+            break;
+    
         case 'list-carts':
-            $bill = loadBill();
+            if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            $soSp = 8;
+            $bill = loadBill_admin($page,$soSp);
+            $total = loadBill();
+            $hien_thi_so_trang =   hien_thi_so_trang_order($total,$soSp);
+
+            
             require_once '../admin/order/list.php';
             break;
         case 'view-bill-admin':
@@ -192,6 +203,7 @@ if(isset($_GET['act'])) {
             if (isset($_POST['updatevaitro']) && ($_POST['updatevaitro'])) {
                 $id_bill = $_POST['id_bill'];
                 $trangthain = $_POST['trangthain'];
+               
                 capnhat_tthd($trangthain, $id_bill);
                 $listhd = select_hoadon(null, null);
                

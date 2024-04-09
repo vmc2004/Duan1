@@ -31,4 +31,28 @@ function capnhat_tthd($trangthain, $id_bill)
     $sql = "update bill set trangthai='" . $trangthain . "' where id_bill=" . $id_bill;
     pdo_execute($sql);
 }
+function loadBill_admin($page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
+
+    $batdau = ($page - 1) * $soSp;
+    // Sửa lại cách nối chuỗi trong truy vấn
+    $sql = "SELECT * FROM `bill` as bi
+    INNER JOIN `user` as us 
+    ON bi.id_user = us.id_user
+    WHERE id_bill 
+    LIMIT ".$batdau.",".$soSp;
+    $list = pdo_query($sql);
+    return $list;
+}
+function  hien_thi_so_trang_order($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=list-carts&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
 ?>

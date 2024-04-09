@@ -7,11 +7,15 @@ foreach ($listhd as $bill) {
         $nd = $bill['ngaydat'];
         $thd = $bill['tongbill'];
         $pt = $bill['pttt'];
+        $trangthai = $bill['trangthai'];
         if ($trangthai == 4) {
             $s = "selected";
         } else {
             $s = "";
         }
+        
+        
+        
 
        
         
@@ -86,13 +90,16 @@ foreach ($listhd as $bill) {
                         </div>
                         <div class="form-group mb-4">
                             <div class="col-sm-12">
-                                <button class="btn btn-success" type="submit" name="updatevaitro" value="vaitro">Cập
-                                    nhật hóa đơn</button>
+
+                            <?php if ($trangthai != 4) { ?>
+            <!-- Hiển thị nút cập nhật hóa đơn nếu trạng thái không phải 4 -->
+            <button class="btn btn-success" type="submit" name="updatevaitro" value="vaitro">Cập nhật hóa đơn</button>
+        <?php } ?>
                             </div>
                         </div>
                         <div class="form-group mb-4">
                             <div class="col-sm-12">
-                                <a class="btn btn-success" href="index.php?act=qlhoadon">Danh sách hóa đơn</a>
+                                <a class="btn btn-success" href="index.php?act=list-carts">Danh sách hóa đơn</a>
                             </div>
                         </div>
                     </form>

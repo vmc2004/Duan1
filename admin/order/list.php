@@ -1,9 +1,6 @@
-<br>
-<br>
-<br>
-<br>
 
-<h2 class="text-center text-primary mt-3">Danh sách sản phẩm</h2>
+
+<h2 class="text-center text-primary mt-3 mt-5">Danh sách sản phẩm</h2>
 <form class="price-slider-amount" method="POST" action="?act=search">
    <div class="label-input">
       <input type="text" name="content" placeholder="Tìm kiếm" />
@@ -45,6 +42,7 @@
                                                 } else if ($trangthai == 3) {
                                                     echo "Đang giao hàng.";
                                                 } else if ($trangthai == 4) {
+                                                    $trangthaitt = 1;
                                                     echo '<b style="color: green;">Đã nhận hàng.</b>';
                                                 } else if ($trangthai == 5) {
                                                     echo '<div style="color: red;">Đơn hàng bị hủy.</div>';
@@ -63,12 +61,11 @@
      </tbody>
 
 </table>
-<!-- <div class="container mt-2 d-flex justify-content-center pagination" id="pagination">
+<div class="container mt-2 d-flex justify-content-center pagination" id="pagination">
                 
           
                <?php
                   echo $hien_thi_so_trang;
                ?>
               
-            </div> -->
-<a href="index.php?act=add-product" class="btn btn-primary"> <i class="fa-solid fa-plus"></i> Thêm sản phẩm</a>
+            </div>
