@@ -44,6 +44,9 @@ if(isset($_GET['act'])) {
 
             require_once '../admin/categories/update.php';
             break;
+        case 'thong-ke':
+            require_once 'thongke/list.php';
+            break;
         case 'list-products':
             if(!isset($_GET['page'])){
                 $page = 1;
@@ -191,13 +194,7 @@ if(isset($_GET['act'])) {
                 $trangthain = $_POST['trangthain'];
                 capnhat_tthd($trangthain, $id_bill);
                 $listhd = select_hoadon(null, null);
-                if($trangthain == 4){
-                    $id_sp = $listhd['id_sp'];
-                    $sp = loadabc($id_sp);
-                    
-                    $soluongNew =  $sp['soluong'] - $listhd['soluong_sp']  ;
-                    change_soluong_sp($soluongNew,$id_sp);
-                }
+               
                 header('Location: ?act=list-carts');
                 die();
             }

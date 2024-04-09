@@ -60,6 +60,10 @@
                     <i class="uil uil-users-alt"></i>
                     <span class="link-name">Tài khoản</span>
                 </a></li>
+                <li><a href="?act=thong-ke">
+                    <i class="uil uil-users-alt"></i>
+                    <span class="link-name">Thống kê</span>
+                </a></li>
             </ul>
             
             <ul class="logout-mode m-0 p-0">

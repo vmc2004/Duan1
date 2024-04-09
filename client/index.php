@@ -18,7 +18,7 @@ if(isset($_GET['act'])) {
     else{
         $page = $_GET['page'];
     }
-    $soSp = 9;
+    $soSp = 6;
     $Product = loadAllProduct_admin($page,$soSp);
     $total = load();
     $hien_thi_so_trang = hien_thi_so_trang_all($total,$soSp);
@@ -35,7 +35,7 @@ if(isset($_GET['act'])) {
     else{
         $page = $_GET['page'];
     }
-    $soSp = 9;
+    $soSp = 6;
     $Product = loadPro_by_matsan($matsan,$page,$soSp);
     $total = loaigiay($matsan);
     $hien_thi_so_trang =  hien_thi_so_trang_view($matsan,$total,$soSp);
@@ -46,7 +46,17 @@ if(isset($_GET['act'])) {
     case 'search':
       if(isset($_POST['search'])){
         $content = $_POST['content'];
-        $Product = search($content);
+        if(!isset($_GET['page'])){
+          $page = 1;
+      }
+      else{
+          $page = $_GET['page'];
+      }
+      $soSp = 6;
+        $Product = search_text($content,$page,$soSp);
+        $total = search($content);
+        $hien_thi_so_trang = hien_thi_so_trang_search($total,$soSp);
+
         require_once './view/product/product.php';
       }
       break;
@@ -179,47 +189,58 @@ if(isset($_GET['act'])) {
       case 'cart':
      if(!empty($_SESSION['cart'])){
       $cart = $_SESSION['cart'];
-     
-       
-      // $Cart = loadCart($idList);
      }
      
      require_once 'cart.php';      
-
-  
-     
         break;   
-      case 'add-to-cart':
-       if(!isset($_SESSION['user'])){
-        header("location: ?act=login");
-       }
-      else{
-        if(!isset($_SESSION['cart'])) $_SESSION['cart'] = [];
-        if(isset($_POST['addToCart'])){
-          $id_sp = $_POST['id_sp'];
-          $name_sp = $_POST['name_sp'];
-          $soluongcart = $_POST['soluongcart'];
-          $price_sp = $_POST['price_sp'];
-          $image_sp = $_POST['image_sp'];
-          $size = $_POST['selectedSize'];
-          $tong_tien = $soluongcart * $price_sp;
-          $cart =[
-            'id_sp'=>$id_sp,
-            'name_sp'=>$name_sp,
-            'price_sp'=> $price_sp,
-            'soluongcart'=>$soluongcart,
-            'image_sp'=>$image_sp,
-            'tongtien' => $tong_tien,
-            'size'=> $size
-          ];
-          $_SESSION['cart'][] = $cart;
-          
-        header("location: ?act=cart");
-        exit();
-        
-       }
-      }
-        break;
+        case 'add-to-cart':
+          if (!isset($_SESSION['user'])) {
+              header("location: ?act=login");
+          } else {
+              if (!isset($_SESSION['cart'])) {
+                  $_SESSION['cart'] = [];
+              }
+      
+              if (isset($_POST['addToCart'])) {
+                  $id_sp = $_POST['id_sp'];
+                  $name_sp = $_POST['name_sp'];
+                  $soluongcart = $_POST['soluongcart'];
+                  $price_sp = $_POST['price_sp'];
+                  $image_sp = $_POST['image_sp'];
+                  $size = $_POST['selectedSize'];
+                  $tong_tien = $soluongcart * $price_sp;
+      
+                  // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
+                  $found = false;
+                  foreach ($_SESSION['cart'] as $key => $item) {
+                      if ($item['id_sp'] == $id_sp && $item['size'] == $size) {
+                          // Nếu sản phẩm đã tồn tại, cập nhật số lượng
+                          $_SESSION['cart'][$key]['soluongcart'] += $soluongcart;
+                          $found = true;
+                          break;
+                      }
+                  }
+      
+                  // Nếu sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
+                  if (!$found) {
+                      $cart = [
+                          'id_sp' => $id_sp,
+                          'name_sp' => $name_sp,
+                          'price_sp' => $price_sp,
+                          'soluongcart' => $soluongcart,
+                          'image_sp' => $image_sp,
+                          'tongtien' => $tong_tien,
+                          'size' => $size
+                      ];
+                      $_SESSION['cart'][] = $cart;
+                  }
+      
+                  header("location: ?act=cart");
+                  exit();
+              }
+          }
+          break;
+      
         case 'delete-cart':
         
           if(isset($_POST['delete']) ) {
@@ -386,6 +407,21 @@ if(isset($_GET['act'])) {
 
          case 'thank':
           require_once 'thank.php';
+          break;
+        case 'bo-loc':
+          if(isset($_GET['filter'])){
+              if($_GET['filter'] == 1){
+                $Product = loc_tang();
+              }
+              if($_GET['filter'] == 2){
+                $Product = loc_giam();
+              }
+               
+              
+             
+            
+          }
+          require_once 'view/product/product.php';
           break;
   }
 

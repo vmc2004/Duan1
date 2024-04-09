@@ -128,7 +128,7 @@ foreach ($listhd as $bill) {
     <div class="row">
         <div class="col-sm-12">
             <div class="white-box">
-                <h3 class="box-title">Chi tiết đơn hàng</h3>
+                <h3 class="box-title mt-3 mb-3">Chi tiết đơn hàng</h3>
                 <div class="table-responsive">
                     <table class="table text-nowrap">
                         <thead>

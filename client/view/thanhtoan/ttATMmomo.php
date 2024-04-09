@@ -13,14 +13,13 @@ $partnerCode = 'MOMOBKUN20180529';
 $accessKey = 'klm05TvNBzhg7h7j';
 $serectkey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 
-$orderInfo = "Thanh toán qua MoMo ATM";
-if (isset($_SESSION['tong_bill'])) {
-    $amount = $_SESSION['tong_bill'];
+$orderInfo = "Thanh toán bằng ATM MoMo";
+if(isset($_SESSION['tongbill'])){
+    $amount = $_SESSION['tongbill'];
 }
-
-$orderId = time() . "";
-$redirectUrl = "http://localhost/Duan1/index.php?act=myacc";
-$ipnUrl = "http://localhost/Duan1/index.php?act=myacc";
+$orderId = time()."";
+$redirectUrl = "http://localhost/Duan1/client/?act=thank";
+$ipnUrl = "http://localhost/Duan1/index.php?act=thank";
 $extraData = "";
 
 $requestId = time() . "";

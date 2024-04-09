@@ -26,6 +26,25 @@ function search($content){
     $result = pdo_query($sql);
     return $result;
 }
+function  search_text($content,$page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
+
+    $batdau = ($page - 1) * $soSp;
+    $sql= "SELECT * FROM `sanpham` WHERE name_sp LIKE '%$content%' LIMIT ".$batdau.",".$soSp;
+    $result = pdo_query($sql);
+    return $result;
+}
+function hien_thi_so_trang_search($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){ 
+        $html .= ' <a class="page-link text-black" href="index.php?act=search&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
 function searchnbyid_dm($id_dm){
     $sql="SELECT * FROM `sanpham` WHERE id_dm = $id_dm";
     $Product = pdo_query($sql);
@@ -94,7 +113,7 @@ function hien_thi_so_trang_all($total,$soSp){
     $number = ceil($product / $soSp);
     $html = ""; 
     for($i=1; $i <= $number; $i++){
-        $html .= ' <a class="page-link text-black" href="index.php?act=all-products&page='.$i.'">'.$i.'</a>';
+        $html .= ' <a class="page-link text-black" href="index.php?act=all-product&page='.$i.'">'.$i.'</a>';
     }
     return $html;
 }
@@ -127,6 +146,16 @@ pdo_execute($sql);
 function change_soluong_sp($soluongNew,$id_sp){
     $sql = "UPDATE `sanpham` SET `soluong` = $soluongNew WHERE `id_sp`=$id_sp";
     pdo_execute($sql);
+}
+function loc_tang(){
+    $sql="SELECT * FROM  `sanpham` ORDER BY price_sp ASC";
+    $result = pdo_query($sql);
+    return $result;
+}
+function loc_giam(){
+    $sql="SELECT * FROM  `sanpham` ORDER BY price_sp DESC";
+    $result = pdo_query($sql);
+    return $result;
 }
 
 

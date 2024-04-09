@@ -46,7 +46,7 @@
             <!-- Giỏ hàng  -->
             <div class="p-3">
               <button class="btn position-relative pt-2 pe-3">
-                <a href="?act=cart"> <i class="fa-solid fa-cart-shopping fa-2xl text-dark"></i></a>
+                <a href="?act=cart"> <i class="fa-solid fa-bag-shopping fa-2xl text-dark"></i></a>
                 <span class="badge bg-light text-danger rounded-pill position-absolute top-0 end-0">
 <?php 
 
