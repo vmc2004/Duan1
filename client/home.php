@@ -198,6 +198,10 @@ foreach($listProduct as $sp){ ?>
 <br>
 </div>
 
-
+<div class="container">
+  <hr>
+ <h3 class="text-center">KHÁCH HÀNG CỦA 8 FOOTBALL</h3>
+ <img src="../img/banner-giua.jpg" alt="" width="100%">
+</div>
 
 </body>

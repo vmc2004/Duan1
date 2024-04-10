@@ -290,12 +290,12 @@ if(isset($_GET['act'])) {
                 'size'=> $size
               ];
               $_SESSION['cart'][] = $cart;
-              var_dump($_SESSION['cart']);
+             
            
             
            }
-           header("location: ?act=check-out");
-           exit();
+          //  header("location: ?act=check-out");
+          //  exit();
           }
             break;
         case 'check-out':

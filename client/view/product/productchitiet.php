@@ -1,4 +1,28 @@
-    <section class="container mt-4">
+<?php
+if($Product['matsan']==1){
+  echo '
+  <div style="background-color: #DCDCDC;" class="ps-3 container">
+                      <a href="index.php" class=" text-black text-decoration-none">Trang chủ</a><a class="text-black text-decoration-none">/ Danh mục</a> <a href="?act=loai&matsan=1" class="text-black text-decoration-none">/ Giày cỏ nhân tạo</a> <a href="" class="text-black text-decoration-none">/ Chi tiết sản phẩm</a>
+                      </div>
+  ';
+}
+if($Product['matsan']==2){
+  echo '
+  <div style="background-color: #DCDCDC;" class="ps-3 container">
+                      <a href="index.php" class=" text-black text-decoration-none">Trang chủ</a><a class="text-black text-decoration-none">/ Danh mục</a> <a href="?act=loai&matsan=2" class="text-black text-decoration-none">/ Giày cỏ tự nhiên</a> <a href="" class="text-black text-decoration-none">/ Chi tiết sản phẩm</a>
+                      </div>
+  ';
+}
+if($Product['matsan']==3){
+  echo '
+  <div style="background-color: #DCDCDC;" class="ps-3 container">
+                      <a href="index.php" class=" text-black text-decoration-none">Trang chủ</a><a class="text-black text-decoration-none">/ Danh mục</a> <a href="?act=loai&matsan=3" class="text-black text-decoration-none">/ Phụ kiện</a> <a href="" class="text-black text-decoration-none">/ Chi tiết sản phẩm</a>
+                      </div>
+  ';
+}
+
+?>
+   <section class="container mt-4">
       <h2 class="text-center mt-4 mb-5">Chi tiết sản phẩm</h2>
       <style>
     /* Ẩn các ô radio */
@@ -18,6 +42,8 @@
 </style>
 
        <div class="row">
+       
+                     
             <div class="col-lg-6 d-flex justify-content-center p-1 border mb-1 pb-9" >
             <form action="?act=add-to-cart" method="POST"  enctype="multipart/form-data">
         <input type="hidden" name="name_sp" value="<?=$Product['name_sp']?>">
