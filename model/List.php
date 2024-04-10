@@ -61,5 +61,46 @@ function loadCmt(){
     $result = pdo_query($sql);
     return $result;
 }
+function   tang($page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
 
+    $batdau = ($page - 1) * $soSp;
+    // Sửa lại cách nối chuỗi trong truy vấn
+    $sql = "SELECT * FROM `sanpham` ORDER BY price_sp ASC
+    LIMIT ".$batdau.",".$soSp;
+    $list = pdo_query($sql);
+    return $list;
+}
+function   giam($page,$soSp){
+    if (empty($page) || $page == 0) {
+        $page = 1;
+    }
+
+    $batdau = ($page - 1) * $soSp;
+    // Sửa lại cách nối chuỗi trong truy vấn
+    $sql = "SELECT * FROM `sanpham` ORDER BY price_sp DESC
+    LIMIT ".$batdau.",".$soSp;
+    $list = pdo_query($sql);
+    return $list;
+}
+function hien_thi_so_trang_tang($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=bo-loc&filter=1&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
+function hien_thi_so_trang_giam($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=bo-loc&filter=2&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
 ?>

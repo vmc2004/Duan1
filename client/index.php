@@ -43,6 +43,40 @@ if(isset($_GET['act'])) {
       
       require_once './view/product/product.php';
       break;
+    case 'bo-loc':
+      if(isset($_GET['filter'])){
+          if($_GET['filter'] == 1){
+            if(!isset($_GET['page'])){
+              $page = 1;
+          }
+          else{
+              $page = $_GET['page'];
+          }
+          $soSp = 6;
+          $Product = tang($page,$soSp);
+            $total = loc_tang();
+            $hien_thi_so_trang =  hien_thi_so_trang_tang($total,$soSp);
+          }
+          if($_GET['filter'] == 2){
+           
+              if(!isset($_GET['page'])){
+                $page = 1;
+            }
+            else{
+                $page = $_GET['page'];
+            }
+            $soSp = 6;
+            $Product = giam($page,$soSp);
+              $total = loc_giam();
+              $hien_thi_so_trang =  hien_thi_so_trang_giam($total,$soSp);
+          }
+            
+          
+          
+        
+      }
+      require_once 'view/product/product.php';
+      break;
     case 'search':
       if(isset($_POST['search'])){
         $content = $_POST['content'];
@@ -408,20 +442,9 @@ if(isset($_GET['act'])) {
          case 'thank':
           require_once 'thank.php';
           break;
-        case 'bo-loc':
-          if(isset($_GET['filter'])){
-              if($_GET['filter'] == 1){
-                $Product = loc_tang();
-              }
-              if($_GET['filter'] == 2){
-                $Product = loc_giam();
-              }
-               
-              
-             
-            
-          }
-          require_once 'view/product/product.php';
+   
+        case 'khach-hang':
+          require_once 'view/users/khachhang.php';
           break;
   }
 

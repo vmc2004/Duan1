@@ -222,6 +222,7 @@ if(isset($_GET['act'])) {
             $comment = loadCmt();
             require_once '../admin/comment/list.php';
             break;
+
         case 'list-users':
             $result = loadAllUser();
             require_once '../admin/user/list.php';

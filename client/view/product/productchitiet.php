@@ -142,6 +142,7 @@ if($Product['matsan']==3){
             <p class="text-danger"> <?=$sp['price_sp']?>₫ </p>
             <button class="btn btn-success" type="submit" name="addToCart" onclick="setAction('add-to-cart')">Thêm vào giỏ hàng</button>
     <a class="btn btn-danger" name="buyNow" href="?act=buy-now" onclick="setAction('buy-now')">Mua ngay</a>
+    
           </div>
         </div>
       

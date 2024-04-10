@@ -15,7 +15,8 @@
     <!-- <link rel="stylesheet" href="../public/index.css"> -->
     <script src="../public/header.js"></script>
     <script src="../lib/bootstrap.css"></script>
-  
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="path/to/jquery.simplePagination.js"></script>
     <link rel="stylesheet" type="text/css" href="path/to/simplePagination.css"/>
@@ -23,7 +24,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="../lib/font-fontawesome-ae333ffef2.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.typekit.net/xxxxxxx.css">
+<style>
+  body {
+    font-family: 'Roboto', sans-serif;
+}
 
+</style>
 </head>
   <body>
     <header>
@@ -147,13 +154,13 @@ else{
                   </ul>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=all-product">Tin tức giày</a>
+                  <a class="nav-link fw-bold" href="#">Tin tức giày</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=all-product">Khách hàng</a>
+                  <a class="nav-link fw-bold" href="index.php?act=khach-hang">Khách hàng</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link fw-bold" href="index.php?act=all-product">Liên hệ</a>
+                  <a class="nav-link fw-bold" href="#">Liên hệ</a>
                 </li>
               </ul>
             </div>
