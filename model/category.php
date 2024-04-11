@@ -33,7 +33,10 @@ function nameById($id_dm){
     return $name;
 }
 
-
+function check_dm($name_dm){
+    $sql="SELECT name_dm FROM danhmuc WHERE name_dm = '$name_dm'";
+    return pdo_query_one($sql);
+}
 
 
 ?>

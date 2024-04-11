@@ -201,17 +201,26 @@ if(isset($_GET['act'])) {
             }
             break;
         
-      case 'register':
-        require_once './view/users/register.php';
-        if(isset($_POST['btn-register'])){
-          $name = $_POST['name'];
-          $email = $_POST['email'];
-          $password = ($_POST['password']); 
-          register($name,$email,$password);
-          header("location: ?act=login");
-          exit();
-        }
-        break;  
+           case 'register':
+            require_once './view/users/register.php';
+            if(isset($_POST['btn-register'])){
+                $name = $_POST['name'];
+                $email = $_POST['email'];
+                $password = $_POST['password']; 
+                $check =checkAccountExist($email);
+
+                // Kiểm tra xem tài khoản đã tồn tại hay chưa
+                if ($check) {
+                    echo "Email đã được sử dụng, vui lòng chọn một email khác!";
+                    exit();
+                }
+                
+                // Nếu tài khoản không tồn tại, đăng ký tài khoản mới
+                register($name, $email, $password);
+                header("location: ?act=login");
+                exit();
+            }
+            break;
       case 'viewProduct':
       if(isset($_GET['id_sp'])){
         $id = $_GET['id_sp'];

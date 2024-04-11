@@ -16,17 +16,25 @@ if(isset($_GET['act'])) {
         case 'list-categories':
             require_once '../admin/categories/list.php';
             break;
-        case 'add-category':
-            $listCat = loadAll();
-            require_once '../admin/categories/add.php';
-            if(isset($_POST['add_category'])){
-                $name = $_POST['category_name'];
-                addCategory($name);
-                header("Location: index.php?act=list-categories");
-                exit(); 
-            }
+            case 'add-category':
+                $listCat = loadAll();
+                require_once '../admin/categories/add.php';
+                if(isset($_POST['add_category'])){
+                    $name = $_POST['category_name'];
+                    $check = check_dm($name); // Kiểm tra danh mục
+                    if(empty($name)) {
+                        echo '<a class="text-danger text-decoration-none">Không được để trống danh mục</a>';
+                    } else if($check['name_dm'] == $name){
+                        echo '<a class="text-danger text-decoration-none">Danh mục đã tồn tại</a>';
+                    } else {
+                        addCategory($name);
+                        header("Location: index.php?act=list-categories");
+                        exit(); 
+                    }
+                }
+                break;
             
-            break;
+            
 
 
         case 'update-category':

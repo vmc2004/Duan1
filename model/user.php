@@ -42,4 +42,9 @@ function loadUser($id_user){
     $result = pdo_query($sql);
     return $result;
 }
+function checkAccountExist($email){
+    $sql="SELECT email FROM `user` WHERE email= $email";
+    $result = pdo_query($sql);
+    return $result;
+}
 ?>

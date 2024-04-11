@@ -48,10 +48,7 @@
                     <i class="uil uil-question-circle"></i>
                     <span class="link-name">Đơn hàng</span>
                 </a></li>
-                <li><a href="?act=list-posts">
-                    <i class="uil uil-newspaper"></i>
-                    <span class="link-name">Bài viết</span>
-                </a></li>
+               
                 <li><a href="?act=comments">
                     <i class="uil uil-comment-alt-dots"></i>
                     <span class="link-name">Bình luận</span>
@@ -61,7 +58,7 @@
                     <span class="link-name">Tài khoản</span>
                 </a></li>
                 <li><a href="?act=thong-ke">
-                    <i class="uil uil-users-alt"></i>
+                <i class="fa-solid fa-chart-simple"></i>
                     <span class="link-name">Thống kê</span>
                 </a></li>
             </ul>

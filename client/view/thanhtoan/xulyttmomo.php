@@ -31,10 +31,11 @@ $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
 $orderInfo = "Thanh toán bằng mã QR MoMo";
 if(isset($_SESSION['tongbill'])){
     $amount = $_SESSION['tongbill'];
+    
 }
 $orderId = time()."";
-$redirectUrl = "http://localhost/Duan1/index.php?act=check-out";
-$ipnUrl = "http://localhost/Duan1/index.php?act=check-out";
+$redirectUrl = "http://localhost/Duan1/index.php?act=thank&id_bill=".$_SESSION['id_bill'];
+$ipnUrl = "http://localhost/Duan1/index.php?act=thank".$_SESSION['id_bill'];
 $extraData = "";
 
 $requestId = time()."";
@@ -66,3 +67,13 @@ $jsonResult = json_decode($result, true);  // decode json
 
 header('Location: '.$jsonResult['payUrl']);
 ?>
+
+
+<!--
+     dữ liệu test 
+số thẻ : 9704 0000 0000 0018	
+tên : NGUYEN VAN A
+ngày : 03/07
+OTP : OTP 
+sdt : 
+ -->
