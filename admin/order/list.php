@@ -1,6 +1,6 @@
 
 
-<h2 class="text-center text-primary mt-3 mt-5">Danh sách sản phẩm</h2>
+<h2 class="text-center text-primary mt-3 mt-5">Danh sách hóa đơn</h2>
 <form class="price-slider-amount" method="POST" action="?act=search-order">
    <div class="label-input">
       <input type="text" name="content" placeholder="Tìm kiếm" />

@@ -1,16 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Đăng ký tài khoản</title>
+
 <style>
     .error {
         color: red;
     }
 </style>
-</head>
-<body>
+
 <div class="wrapper">
     <div class="container">
         <form class="login-form justify-content-center" action="" method="POST" onsubmit="return validateForm()">
@@ -83,5 +77,4 @@ function validateForm() {
 }
 
 </script>
-</body>
-</html>
+

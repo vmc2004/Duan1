@@ -47,4 +47,8 @@ function checkAccountExist($email){
     $result = pdo_query($sql);
     return $result;
 }
+function update_user($role,$id_user){
+    $sql="UPDATE `user` SET `role`='$role' WHERE id_user = $id_user";
+    pdo_execute($sql);
+}
 ?>

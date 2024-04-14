@@ -238,10 +238,21 @@ if(isset($_GET['act'])) {
         case 'edit-user':
             $id_user = $_GET['id_user'];
             $User = loadUser($id_user);
+          
             require_once '../admin/user/edit.php';
+            break;
+        case 'update_user':
+            if(isset($_POST['update-user'])){
+                $id_user = $_GET['id_user'];
+                $role= $_POST['role'];
+                update_user($role,$id_user);
+                header('Location: ?act=list-users');
+                exit();
+            }
             break;
         case 'delete-category':
             if(isset($_GET['id_dm'])){
+                
                 $id_dm = $_GET['id_dm'];
                 delete($id_dm);
             }
