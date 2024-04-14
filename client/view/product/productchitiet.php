@@ -100,14 +100,15 @@ if($Product['matsan']==3){
          <?=$Product['soluong']?> sản phẩm có sẵn
     </div>
     <br>
-    <button class="btn btn-success" type="submit" name="addToCart" onclick="setAction('add-to-cart')">Thêm vào giỏ hàng</button>
-    <a class="btn btn-danger" name="buyNow" href="?act=buy-now" onclick="setAction('buy-now')">Mua ngay</a>
+    <button class="btn btn-success" type="submit" name="addToCart" >Thêm vào giỏ hàng</button>
+    <button class="btn btn-danger" type="submit" name="buy-now">Mua ngay</button>
                 
         </div>
             </div>
-           
+
     
        </form>
+
         <!-- Thông số kỹ thuật -->
       
         <div class="row mt-4">
@@ -255,7 +256,5 @@ sizeOptions.forEach(sizeOption => {
         this.classList.add('active');
     });
 });
-function setAction(action) {
-    document.getElementById('formAction').value = action;
-}
+
 </script>

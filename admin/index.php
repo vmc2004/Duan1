@@ -258,6 +258,15 @@ if(isset($_GET['act'])) {
             }
             require_once '../admin/categories/list.php';
             break;
+        case 'search-order':
+            if(isset($_POST['search'])){
+                $content = $_POST['content'];
+                
+
+            $bill =content($content);
+            }
+            require_once '../admin/order/list.php';
+            break;
        
     }
 }
