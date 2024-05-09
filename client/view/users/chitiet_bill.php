@@ -39,7 +39,7 @@ if(!empty($_SESSION['user'])){
                     $listhd = select_hoadon(null, null);
                     foreach ($listhd as $lhd) {
                         extract($lhd);
-                        $idfhd = $id_bill;
+                        $idfhd = $_GET['id_bill'];
                         if ($id_user == $_SESSION['user']['id_user'] && $id_bill == $_GET['id_bill']) {
                             $tthoadon = $tongbill;
                             $trangthaihd = $trangthai;

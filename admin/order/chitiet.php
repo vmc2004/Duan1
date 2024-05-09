@@ -91,7 +91,7 @@ foreach ($listhd as $bill) {
                         <div class="form-group mb-4">
                             <div class="col-sm-12">
 
-                            <?php if ($trangthai != 4) { ?>
+                            <?php if ($trangthai != 4 ) { ?>
             <!-- Hiển thị nút cập nhật hóa đơn nếu trạng thái không phải 4 -->
             <button class="btn btn-success" type="submit" name="updatevaitro" value="vaitro">Cập nhật hóa đơn</button>
         <?php } ?>
