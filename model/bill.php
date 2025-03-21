@@ -55,4 +55,20 @@ function  hien_thi_so_trang_order($total,$soSp){
     }
     return $html;
 }
+function content($content){
+    $sql = "SELECT * FROM `bill` as bi
+    INNER JOIN `user` as us 
+    ON bi.id_user = us.id_user WHERE id_bill = $content";
+    $resutl = pdo_query($sql);
+    return $resutl;
+}
+function hien_thi($total,$soSp){
+    $product = count($total);
+    $number = ceil($product / $soSp);
+    $html = ""; 
+    for($i=1; $i <= $number; $i++){
+        $html .= ' <a class="page-link text-black" href="index.php?act=list-carts&page='.$i.'">'.$i.'</a>';
+    }
+    return $html;
+}
 ?>

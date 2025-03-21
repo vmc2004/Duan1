@@ -65,7 +65,12 @@
                 
           
                <?php
-                  echo $hien_thi_so_trang;
+                  if(isset($content)){
+                    
+                  }
+                  else{
+                    echo $hien_thi_so_trang;
+                  }
                ?>
               
             </div>

@@ -51,4 +51,9 @@ function update_user($role,$id_user){
     $sql="UPDATE `user` SET `role`='$role' WHERE id_user = $id_user";
     pdo_execute($sql);
 }
+
+function del_user($id_user){
+    $sql="DELETE FROM `user` WHERE id_user = $id_user";
+    pdo_execute($sql);
+}
 ?>

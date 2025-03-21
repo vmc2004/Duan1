@@ -34,8 +34,8 @@ if(isset($_SESSION['tongbill'])){
     
 }
 $orderId = time()."";
-$redirectUrl = "http://localhost/Duan1/index.php?act=thank&id_bill=".$_SESSION['id_bill'];
-$ipnUrl = "http://localhost/Duan1/index.php?act=thank".$_SESSION['id_bill'];
+$redirectUrl = "http://localhost/Duan1/client/?act=thank&id_bill=$idBill";
+$ipnUrl = "http://localhost/Duan1/index.php?act=thank&id_bill=$idBill";
 $extraData = "";
 
 $requestId = time()."";

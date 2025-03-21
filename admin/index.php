@@ -250,6 +250,15 @@ if(isset($_GET['act'])) {
                 exit();
             }
             break;
+        case 'delete-user':
+            if(isset($_GET['id_user'])){
+                $id_user = $_GET['id_user'];
+                del_user($id_user);
+              
+            }
+            header("location: ?act=list-users");
+            exit();
+            break;
         case 'delete-category':
             if(isset($_GET['id_dm'])){
                 
@@ -257,6 +266,15 @@ if(isset($_GET['act'])) {
                 delete($id_dm);
             }
             require_once '../admin/categories/list.php';
+            break;
+        case 'search-order':
+            if(isset($_POST['search'])){
+                $content = $_POST['content'];
+                
+
+            $bill =content($content);
+            }
+            require_once '../admin/order/list.php';
             break;
        
     }

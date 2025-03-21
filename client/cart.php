@@ -1,3 +1,4 @@
+
 <div class="row">
     <div class="col-md-12">
         <div class="text-center">
@@ -30,17 +31,18 @@
                             $id_sp = $ca['id_sp'];
                             $Product = loadProductById($id_sp);
                     ?>
+                    
                             <tr class="cart_item container">
-                                <td>
-                                    <form method="POST" action="?act=delete-cart&id_sp=<?= $id_sp ?>">
-                                        <input type="hidden" name="cart_id" value="<?= $id_sp ?>">
+                                <td class="max">
+                                    <form method="POST" action="?act=delete-cart&id_sp=<?=$id_sp?>">
+                                        <input type="hidden" name="cart_id" value="<?=$id_sp?>">
                                         <button type="submit" name="delete" class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn xóa sản phẩm khỏi giỏ hàng ?')">
                                             <i class="fa-solid fa-trash"></i>
                                         </button>
                                     </form>
                                 </td>
                                 <td><a title="Remove this item" class="remove" href="#"></a></td>
-                                <td><?= $ca['name_sp'] ?></td>
+                                <td style="max-width: 450px;"><?= $ca['name_sp'] ?></td>
                                 <td>
                                     <img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="../img/<?= $ca['image_sp'] ?>">
                                 </td>
@@ -69,7 +71,7 @@
                                 <label for="coupon_code">Mã giảm giá:</label>
                                 <input type="text" placeholder="Nhập mã" value="" id="coupon_code" class="input-text" name="coupon_code">
                                 <input type="submit" value="Áp dụng" name="apply_coupon" class="btn btn-warning">
-                                <input type="submit" value="Cập nhật" name="update_cart" class="btn btn-danger">
+                                
                                 <a href="?act=check-out" class="btn btn-primary">Thanh toán</a>
                             </div>
                         </td>

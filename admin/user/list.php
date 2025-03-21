@@ -24,7 +24,7 @@
                <?php
                     if($us['role'] == 'Client'){
                          ?>
-                              <button class="btn btn-danger"><a href="?act=delete-user&id_user=<?=$us['id_user']?>"><i class="fa-solid fa-user-xmark text-white"></i></i></a></button>
+                              <button class="btn btn-danger" onclick="return confirm('Bạn có chắc chắn muốn xóa khách hàng này không ?')"><a href="?act=delete-user&id_user=<?=$us['id_user']?>" ><i class="fa-solid fa-user-xmark text-white"></i></i></a></button>
                  <?php   } ?>
            
           </td>
@@ -34,3 +34,4 @@
      
      </tbody>
 </table>
+

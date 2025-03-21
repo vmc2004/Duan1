@@ -39,7 +39,7 @@ if(!empty($_SESSION['user'])){
                     $listhd = select_hoadon(null, null);
                     foreach ($listhd as $lhd) {
                         extract($lhd);
-                        $idfhd = $id_bill;
+                        $idfhd = $_GET['id_bill'];
                         if ($id_user == $_SESSION['user']['id_user'] && $id_bill == $_GET['id_bill']) {
                             $tthoadon = $tongbill;
                             $trangthaihd = $trangthai;
@@ -75,6 +75,10 @@ if(!empty($_SESSION['user'])){
                                         echo "Đang giao hàng.";
                                     } else if ($trangthai == 4) {
                                         echo '<b style="color: green;">Đã nhận hàng.</b>';
+                                        if ($trangthaitt != 1) { 
+                                            // Set payment status to "Đã thanh toán"
+                                            $trangthaitt = 1;
+                                        }
                                     } else if ($trangthai == 5) {
                                         echo '<div style="color: red;">Đơn hàng bị hủy.</div>';
                                     }
@@ -146,7 +150,7 @@ if(!empty($_SESSION['user'])){
                         if ($trangthai_tt == 1 && $trangthaihd == 5) {
                             echo
                                 '<div class="coupon">
-                                    <a href="index.php?act=sanpham" class="button">Mua sắm thêm</a>
+                                    <a href="index.php?act=all-product" class="btn btn-success">Mua sắm thêm</a>
                                 </div>';
                         } else if ($trangthaihd == 5) {
                             echo
