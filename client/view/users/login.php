@@ -1,6 +1,7 @@
 
-    <body class="container">
-             <form class="login-form shadow justify-content-center" action="" method="POST">
+    <body >
+      <div class="container">
+      <form class="login-form  shadow justify-content-center" action="" method="POST">
                   <h2 class="form-heading">Đăng nhập</h2>
                   <p class="form-desc">Bạn không có tài khoản ?
                        <a class="text-link" href="?act=register">Đăng ký</a>
@@ -20,17 +21,15 @@
                       <label class="form-check-label" for="rememberMe">Ghi nhớ đăng nhập</label>
                     
                   </div>
-                    <div class="d-flex justify-content-end mt-3 " >
-                      <a href="#" >Quên mật khẩu?</a>
-                    </div>
+                  
                   <div class="d-grid">
                     <button type="submit" name="submit" class="form-btn btn-success">Đăng Nhập</button>
                   </div>
 
               
              </form>
-        </div>
-   </div>
+     
+      </div>
     </body>
 
 
